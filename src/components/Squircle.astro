@@ -1,0 +1,79 @@
+---
+interface Props {
+  as?: 'div' | 'a' | 'button' | 'span' | 'section';
+  class?: string;
+  cornerRadius?: number;
+  cornerSmoothing?: number;
+  href?: string;
+  target?: string;
+  rel?: string;
+  [key: string]: any;
+}
+
+const { 
+  as: Tag = 'div',
+  class: className = '',
+  cornerRadius = 14,
+  cornerSmoothing = 0.6,
+  ...props 
+} = Astro.props;
+---
+
+<Tag 
+  class:list={['squircle', className]}
+  data-corner-radius={cornerRadius}
+  data-corner-smoothing={cornerSmoothing}
+  {...props}
+>
+  <slot />
+</Tag>
+
+<script>
+  import { getSvgPath } from 'figma-squircle';
+
+  function applySquircle(element: HTMLElement) {
+    const cornerRadius = parseFloat(element.dataset.cornerRadius || '14');
+    const cornerSmoothing = parseFloat(element.dataset.cornerSmoothing || '0.6');
+    
+    const updateClipPath = () => {
+      const width = element.offsetWidth;
+      const height = element.offsetHeight;
+      
+      if (width === 0 || height === 0) return;
+      
+      const svgPath = getSvgPath({
+        width,
+        height,
+        cornerRadius,
+        cornerSmoothing,
+      });
+      
+      element.style.clipPath = `path('${svgPath}')`;
+    };
+
+    updateClipPath();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateClipPath();
+    });
+    
+    resizeObserver.observe(element);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }
+
+  function initSquircles() {
+    document.querySelectorAll<HTMLElement>('.squircle').forEach(applySquircle);
+  }
+
+  initSquircles();
+  document.addEventListener('astro:page-load', initSquircles);
+</script>
+
+<style>
+  .squircle {
+    border-radius: var(--fallback-radius, 14px);
+  }
+</style>

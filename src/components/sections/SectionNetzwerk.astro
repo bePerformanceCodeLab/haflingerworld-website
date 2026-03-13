@@ -1,0 +1,136 @@
+---
+import { Image } from 'astro:assets';
+import netzwerkHeader from '@/images/headers/netzwerk-header.webp';
+import netzwerkMitgliedsorganisationen from '@/images/netzwerk/netzwerk-mitgliedsorganisationen.webp';
+import netzwerkSportorganisationen from '@/images/netzwerk/netzwerk-sportorganisationen.webp';
+import netzwerkBehoerden from '@/images/netzwerk/netzwerk-behoerden.webp';
+
+interface Props {
+  showCta?: boolean;
+}
+const { showCta = true } = Astro.props;
+const sectionId = 'netzwerk';
+const subpages = [
+  { id: 'mitgliedsorganisationen', title: 'Mitgliedsorganisationen', lead: 'Offizielle Verbände und Zuchtorganisationen weltweit.', tag: 'Listen, Links, Ansprechpartner', placeholder: 'Konkrete Listen, Links und Ansprechpartner können hier eingepflegt werden.', image: netzwerkMitgliedsorganisationen },
+  { id: 'sportorganisationen', title: 'Sportorganisationen', lead: 'Partner im Reit- und Fahrsport mit gemeinsamen Standards.', tag: 'Partner, Standards', placeholder: 'Konkrete Listen, Links und Ansprechpartner können hier eingepflegt werden.', image: netzwerkSportorganisationen },
+  { id: 'behoerden', title: 'Behörden', lead: 'Zuständige Stellen für Anerkennung und Dokumentation.', tag: 'Anerkennung, Dokumentation', placeholder: 'Konkrete Listen, Links und Ansprechpartner können hier eingepflegt werden.', image: netzwerkBehoerden },
+];
+
+const networkStats = [
+  { value: '40+', label: 'Länder' },
+  { value: '6', label: 'Kontinente' },
+  { value: '25+', label: 'Mitgliedsverbände' },
+];
+---
+
+<section id={sectionId} class="py-20 sm:py-24 bg-white border-t border-black/5 overflow-hidden">
+  <div class="site-container">
+    
+    <!-- Section Header -->
+    <header class="mb-12 sm:mb-16" data-reveal="fade-up">
+      <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3">
+        Internationales Netzwerk
+      </p>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-5 text-balance">
+        Weltweit verbunden
+      </h2>
+      <p class="text-lg text-gray-600 leading-relaxed max-w-2xl">
+        Die HWZSV verbindet Menschen, Organisationen und Institutionen. So entstehen kurze Wege, klare Zuständigkeiten und gemeinsame Ziele.
+      </p>
+    </header>
+
+    <!-- Stats -->
+    <div class="mb-16 sm:mb-20" data-reveal="fade-up" data-reveal-delay="150">
+      <div class="stats-bar">
+        {networkStats.map((stat) => (
+          <div class="stats-bar-item">
+            <span class="stats-bar-number">{stat.value}</span>
+            <span class="stats-bar-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Header Image -->
+    <div class="mb-16 sm:mb-20 rounded-2xl overflow-hidden" data-reveal="scale">
+      <Image src={netzwerkHeader} alt="Internationales Netzwerk – Weltweit verbunden" class="w-full h-auto object-cover aspect-[21/9]" width={1280} height={548} />
+    </div>
+
+    <!-- Content Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal-stagger="100">
+      {subpages.map((item, index) => (
+        <article id={`${sectionId}-${item.id}`} class="scroll-mt-28" data-reveal="scale">
+          <div class="netzwerk-card group h-full">
+            <div class="netzwerk-card-img mb-4 rounded-xl overflow-hidden aspect-video">
+              <Image src={item.image} alt={item.title} class="w-full h-full object-cover" width={800} height={450} />
+            </div>
+
+            <div class="mb-4">
+              <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 leading-tight">
+                {item.title}
+              </h3>
+            </div>
+
+            <div class="flex-1 mb-4">
+              <p class="text-base text-gray-900 font-medium leading-relaxed mb-3">{item.lead}</p>
+              <p class="placeholder-text">{item.placeholder}</p>
+            </div>
+
+            <div class="mt-auto">
+              <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-gray-400 border border-gray-200 rounded-full px-3 py-1.5">
+                {item.tag}
+              </span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {showCta && (
+      <div class="mt-16 sm:mt-20 pt-8 border-t border-black/5" data-reveal="fade-up">
+        <a href="/netzwerk" class="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group btn-glow">
+          Zur Netzwerk-Seite
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    )}
+
+  </div>
+</section>
+
+<style>
+  .netzwerk-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background: #fafafa;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 280px;
+  }
+
+  @media (min-width: 640px) {
+    .netzwerk-card { padding: 28px; }
+  }
+
+  .netzwerk-card:hover {
+    background: white;
+    border-color: rgba(134, 23, 44, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .netzwerk-card { min-height: 240px; }
+  }
+
+  @media (min-width: 1024px) {
+    .netzwerk-card { min-height: 300px; }
+  }
+</style>

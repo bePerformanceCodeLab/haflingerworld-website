@@ -1,0 +1,19 @@
+---
+interface Props {
+  items: { id: string; label: string }[];
+  sectionId: string;
+  label?: string;
+}
+
+const { items, sectionId, label = 'Bereiche' } = Astro.props;
+---
+
+<div class="sticky-subnav">
+  <div class="site-container">
+    <nav class="section-subnav" aria-label={label}>
+      {items.map((item) => (
+        <a href={`#${sectionId}-${item.id}`}>{item.label}</a>
+      ))}
+    </nav>
+  </div>
+</div>

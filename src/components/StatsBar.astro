@@ -1,0 +1,16 @@
+---
+interface Props {
+  stats: { value: string; label: string }[];
+}
+
+const { stats } = Astro.props;
+---
+
+<div class="stats-bar" data-reveal="fade-up">
+  {stats.map((stat) => (
+    <div class="stats-bar-item">
+      <span class="stats-bar-number">{stat.value}</span>
+      <span class="stats-bar-label">{stat.label}</span>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,30 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import SectionHero from '@/components/sections/SectionHero.astro';
+import SectionHaflinger from '@/components/sections/SectionHaflinger.astro';
+import SectionZucht from '@/components/sections/SectionZucht.astro';
+import SectionNetzwerk from '@/components/sections/SectionNetzwerk.astro';
+import SectionHwzsv from '@/components/sections/SectionHwzsv.astro';
+import SectionNews from '@/components/sections/SectionNews.astro';
+import SectionEvents from '@/components/sections/SectionEvents.astro';
+---
+
+<MainLayout
+  title="Haflinger International – HWZSV"
+  description="Die Haflinger Welt-Zucht- und Sportvereinigung. Informationen zu Zucht, Netzwerk, HWZSV, News und Terminen."
+  showNavbar={true}
+>
+  <SectionHero />
+
+  <SectionHaflinger />
+
+  <SectionZucht />
+
+  <SectionNetzwerk />
+
+  <SectionHwzsv />
+
+  <SectionNews />
+
+  <SectionEvents />
+</MainLayout>

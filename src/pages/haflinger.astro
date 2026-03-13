@@ -1,0 +1,24 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHaflinger from '@/components/sections/SectionHaflinger.astro';
+import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+---
+
+<MainLayout title="Haflinger – HWZSV" description="Geschichte, Eigenschaften und Verwendung des Haflingers. Informationen der HWZSV." showNavbar={true}>
+  <PageHero
+    title="Der Haflinger"
+    lead="Geschichte, Eigenschaften und Verwendung – alles Wissenswerte über eine der vielseitigsten Pferderassen der Welt."
+    accent="Haflinger"
+    breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'Haflinger' }]}
+  />
+
+  <SectionHaflinger showCta={false} />
+  <SectionCrossLinks excludePath="/haflinger" />
+
+  <CtaBanner
+    title="Mehr über den Haflinger erfahren?"
+    text="Kontaktieren Sie uns für Informationen zu Zucht, Erwerb und internationalen Standards."
+  />
+</MainLayout>

@@ -1,0 +1,24 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionZucht from '@/components/sections/SectionZucht.astro';
+import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+---
+
+<MainLayout title="Zucht – HWZSV" description="Zuchtrichtlinien, Rassegrundsätze und Programme der Haflinger Welt-Zucht- und Sportvereinigung." showNavbar={true}>
+  <PageHero
+    title="Zucht"
+    lead="Rassegrundsätze, Richtlinien, Zuchtprogramme, Datenbanken und Hengste – die Grundlagen einer verantwortungsvollen Zucht."
+    accent="Zucht & Qualität"
+    breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'Zucht' }]}
+  />
+
+  <SectionZucht showCta={false} />
+  <SectionCrossLinks excludePath="/zucht" />
+
+  <CtaBanner
+    title="Fragen zur Zucht?"
+    text="Die HWZSV unterstützt Sie bei allen Fragen zu Zuchtrichtlinien und Programmen."
+  />
+</MainLayout>

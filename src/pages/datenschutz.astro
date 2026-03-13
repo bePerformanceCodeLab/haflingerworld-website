@@ -1,0 +1,56 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+---
+
+<MainLayout title="Datenschutz – HWZSV" description="Datenschutzerklärung der Haflinger Welt-Zucht- und Sportvereinigung. Informationen zur Verarbeitung Ihrer Daten und Ihre Rechte." showNavbar={true}>
+  <div class="max-w-2xl mx-auto px-5 sm:px-6 py-10 sm:py-16 md:py-20">
+    <Breadcrumb items={[{ label: 'Startseite', href: '/' }, { label: 'Datenschutz' }]} />
+
+    <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900 tracking-tight mb-3 sm:mb-4">Datenschutz</h1>
+    
+    <p class="text-sm text-gray-500 mb-6 sm:mb-8 leading-relaxed">
+      Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, EU Verordnung 679/2016).
+    </p>
+    
+    <div class="space-y-6 sm:space-y-8">
+
+      <section>
+        <h2 class="text-[11px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 sm:mb-3">Verantwortlicher</h2>
+        <div class="text-sm text-gray-600 space-y-0.5 leading-relaxed">
+          <p>HWZSV, Galvanistraße 38, 39100 Bozen, Italien</p>
+          <p><a href="mailto:office@haflinger-world.com" class="text-gray-900 hover:text-accent active:text-accent/80 transition-colors">office@haflinger-world.com</a></p>
+        </div>
+      </section>
+
+      <div class="h-px bg-gray-100"></div>
+
+      <section>
+        <h2 class="text-[11px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 sm:mb-3">Datenerhebung</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Beim Besuch unserer Website werden technisch notwendige Daten (Server-Logfiles wie IP-Adresse, Datum, Uhrzeit) gespeichert, um die Sicherheit des Betriebs zu gewährleisten. Diese Daten werden nicht personenbezogen verwertet.
+        </p>
+      </section>
+
+      <div class="h-px bg-gray-100"></div>
+
+      <section>
+        <h2 class="text-[11px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 sm:mb-3">Ihre Rechte</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu. Kontaktieren Sie uns hierfür jederzeit.
+        </p>
+      </section>
+
+      <div class="h-px bg-gray-100"></div>
+
+      <section id="cookie">
+        <h2 class="text-[11px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 sm:mb-3">Cookie-Einstellungen</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Diese Website setzt nur technisch notwendige Cookies ein (z. B. für die Grundfunktionen der Seite). Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden. Kontaktieren Sie uns bei Fragen zum Datenschutz unter <a href="mailto:office@haflinger-world.com" class="text-gray-900 hover:text-accent active:text-accent/80 transition-colors">office@haflinger-world.com</a>.
+        </p>
+      </section>
+      
+    </div>
+    
+  </div>
+</MainLayout>

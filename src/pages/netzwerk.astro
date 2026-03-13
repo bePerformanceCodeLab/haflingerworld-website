@@ -1,0 +1,25 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionNetzwerk from '@/components/sections/SectionNetzwerk.astro';
+import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+---
+
+<MainLayout title="Netzwerk – HWZSV" description="Das internationale Netzwerk der HWZSV: Mitgliedsorganisationen, Sportorganisationen und Behörden weltweit." showNavbar={true}>
+  <PageHero
+    title="Internationales Netzwerk"
+    lead="Mitgliedsorganisationen, Sportorganisationen und Behörden – die HWZSV verbindet die Haflinger-Welt über Ländergrenzen hinweg."
+    accent="Weltweit vernetzt"
+    breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'Netzwerk' }]}
+  />
+
+  <SectionNetzwerk showCta={false} />
+  <SectionCrossLinks excludePath="/netzwerk" />
+
+  <CtaBanner
+    title="Teil des Netzwerks werden?"
+    text="Erfahren Sie, wie Ihre Organisation Mitglied der HWZSV werden kann."
+    buttonLabel="Kontakt aufnehmen"
+  />
+</MainLayout>

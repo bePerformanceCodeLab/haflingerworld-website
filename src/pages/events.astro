@@ -1,0 +1,25 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionEvents from '@/components/sections/SectionEvents.astro';
+import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+---
+
+<MainLayout title="Events & Kalender – HWZSV" description="Internationale Termine und Veranstaltungskalender der Haflinger Welt-Zucht- und Sportvereinigung." showNavbar={true}>
+  <PageHero
+    title="Events & Kalender"
+    lead="Internationale Termine, Wettbewerbe und Meetings – alle Veranstaltungen der Haflinger-Welt im Überblick."
+    accent="Veranstaltungen"
+    breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'Events & Kalender' }]}
+  />
+
+  <SectionEvents noTopBorder={true} compactHeader={true} showCta={false} />
+  <SectionCrossLinks excludePath="/events" />
+
+  <CtaBanner
+    title="Eigene Veranstaltung eintragen?"
+    text="Melden Sie Ihre Veranstaltung an und erreichen Sie die internationale Haflinger-Community."
+    buttonLabel="Veranstaltung melden"
+  />
+</MainLayout>

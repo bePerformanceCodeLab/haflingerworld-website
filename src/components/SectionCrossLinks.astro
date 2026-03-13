@@ -1,0 +1,145 @@
+---
+interface Props {
+  excludePath: string;
+}
+
+const { excludePath } = Astro.props;
+
+const allPages = [
+  { href: '/haflinger', label: 'Haflinger', subs: ['Geschichte', 'Eigenschaften', 'Verwendung'] },
+  { href: '/zucht', label: 'Zucht', subs: ['Rassegrundsätze', 'Richtlinien', 'Zuchtprogramme', 'Datenbanken', 'Hengste'] },
+  { href: '/netzwerk', label: 'Internationales Netzwerk', subs: ['Mitgliedsorganisationen', 'Sportorganisationen', 'Behörden'] },
+  { href: '/hwzsv', label: 'HWZSV', subs: ['Intro', 'Satzungen', 'Zuständigkeiten', 'Gremien'] },
+  { href: '/news', label: 'News', subs: ['Berichte', 'Fotos', 'Downloads', 'Newsletter'] },
+  { href: '/events', label: 'Events & Kalender', subs: ['Internationale Termine', 'Veranstaltungskalender'] },
+];
+
+const pathNorm = excludePath.replace(/\/$/, '') || '/';
+const links = allPages.filter((p) => {
+  const hrefNorm = p.href.replace(/\/$/, '') || p.href;
+  return pathNorm !== hrefNorm;
+});
+---
+
+<section class="relative z-10 bg-white border-t border-black/5" data-reveal="fade-up">
+  <div class="site-container py-16 sm:py-20">
+    <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-8" data-reveal="fade-up">
+      Mehr Themen entdecken
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4" role="navigation" aria-label="Schnellzugriff zu Bereichen" data-reveal-stagger="60">
+      {links.map((item) => (
+        <a href={item.href} class="quick-jump-card" data-reveal="fade-up">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <h3 class="quick-jump-title">{item.label}</h3>
+              {item.subs.length > 0 && (
+                <p class="quick-jump-subs">
+                  {item.subs.slice(0, 3).join(' · ')}{item.subs.length > 3 ? ' …' : ''}
+                </p>
+              )}
+            </div>
+            <div class="quick-jump-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7"/>
+                <path d="M7 7h10v10"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+      ))}
+      <a href="/" class="quick-jump-card" data-reveal="fade-up">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex-1 min-w-0">
+            <h3 class="quick-jump-title">Zur Startseite</h3>
+            <p class="quick-jump-subs">Übersicht · Alle Bereiche</p>
+          </div>
+          <div class="quick-jump-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17L17 7"/>
+              <path d="M7 7h10v10"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quick-jump-card {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (min-width: 640px) {
+    .quick-jump-card { padding: 24px; }
+  }
+
+  .quick-jump-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(134, 23, 44, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .quick-jump-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #18181b;
+    margin-bottom: 6px;
+    line-height: 1.3;
+    transition: color 0.2s ease;
+  }
+
+  @media (min-width: 640px) {
+    .quick-jump-title { font-size: 16px; margin-bottom: 8px; }
+  }
+
+  .quick-jump-card:hover .quick-jump-title { color: #86172c; }
+
+  .quick-jump-subs {
+    font-size: 12px;
+    color: #71717a;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 640px) {
+    .quick-jump-subs { font-size: 13px; }
+  }
+
+  .quick-jump-arrow {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4d4d8;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (min-width: 640px) {
+    .quick-jump-arrow { width: 32px; height: 32px; }
+  }
+
+  .quick-jump-card:hover .quick-jump-arrow {
+    color: #86172c;
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 639px) {
+    .quick-jump-card { min-height: 88px; }
+  }
+
+  @media (min-width: 640px) {
+    .quick-jump-card { min-height: 96px; }
+  }
+</style>

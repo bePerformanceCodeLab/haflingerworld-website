@@ -1,0 +1,79 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+---
+
+<MainLayout title="Impressum – HWZSV" description="Impressum und rechtliche Angaben der Haflinger Welt-Zucht- und Sportvereinigung (HWZSV)." showNavbar={true}>
+  <div class="max-w-2xl mx-auto px-5 sm:px-6 py-10 sm:py-16 md:py-20">
+    <Breadcrumb items={[{ label: 'Startseite', href: '/' }, { label: 'Impressum' }]} />
+
+    <h1
+      class="text-2xl sm:text-3xl font-semibold text-gray-900 tracking-tight mb-6 sm:mb-8"
+    >
+      Impressum
+    </h1>
+
+    <div class="space-y-6 sm:space-y-8">
+      <section>
+        <h2
+          class="text-[11px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 sm:mb-3"
+        >
+          Angaben gemäß Gesetzgebung
+        </h2>
+        <div class="text-sm text-gray-600 space-y-0.5 leading-relaxed">
+          <p class="font-medium text-gray-900">
+            Haflinger Welt- Zucht- und Sportvereinigung
+          </p>
+          <p>Galvanistraße 38</p>
+          <p>I-39100 Bozen (Südtirol/Italien)</p>
+        </div>
+      </section>
+
+      <div class="h-px bg-gray-100"></div>
+
+      <section>
+        <h2
+          class="text-[11px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 sm:mb-3"
+        >
+          Vertretung & Kontakt
+        </h2>
+        <div class="text-sm text-gray-600 space-y-0.5 leading-relaxed">
+          <p>Präsident: <span class="text-gray-900">Lukas Scheiber</span></p>
+          <p>
+            Generalsekretär: <span class="text-gray-900">Michael Gruber</span>
+          </p>
+          <div class="pt-2 space-y-0.5">
+            <p>
+              Tel.: <a
+                href="tel:+390471063970"
+                class="text-gray-900 hover:text-accent active:text-accent/80 transition-colors"
+                >+39 0471 063 970</a
+              >
+            </p>
+            <p>
+              E-Mail: <a
+                href="mailto:office@haflinger-world.com"
+                class="text-gray-900 hover:text-accent active:text-accent/80 transition-colors"
+                >office@haflinger-world.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="h-px bg-gray-100"></div>
+
+      <section>
+        <h2
+          class="text-[11px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 sm:mb-3"
+        >
+          Rechtliche Daten
+        </h2>
+        <div class="text-sm text-gray-600 space-y-0.5 leading-relaxed">
+          <p>MwSt.-Nr.: <span class="text-gray-900">IT94120830214</span></p>
+          <p>Rechtsform: Internationale Vereinigung</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</MainLayout>

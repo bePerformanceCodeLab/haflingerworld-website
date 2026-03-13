@@ -1,0 +1,26 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionNews from '@/components/sections/SectionNews.astro';
+import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+---
+
+<MainLayout title="News – HWZSV" description="Neuigkeiten, Berichte, Fotos, Downloads und Newsletter der Haflinger Welt-Zucht- und Sportvereinigung." showNavbar={true}>
+  <PageHero
+    title="News & Aktuelles"
+    lead="Berichte, Fotos, Downloads und Newsletter – bleiben Sie informiert über alles rund um die Haflinger-Welt."
+    accent="Aktuelles"
+    breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'News' }]}
+  />
+
+  <SectionNews showCta={false} />
+  <SectionCrossLinks excludePath="/news" />
+
+  <CtaBanner
+    title="Immer auf dem Laufenden"
+    text="Abonnieren Sie unseren Newsletter für die neuesten Nachrichten und Termine."
+    buttonLabel="Newsletter abonnieren"
+    buttonHref="#news-newsletteranmeldung"
+  />
+</MainLayout>

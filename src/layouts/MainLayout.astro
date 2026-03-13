@@ -1,0 +1,279 @@
+---
+// src/layouts/MainLayout.astro
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  showNavbar?: boolean;
+}
+
+const {
+  title = 'Haflinger International – HWZSV',
+  description = 'Die Haflinger Welt-Zucht- und Sportvereinigung. Informationen zu Zucht, Netzwerk, HWZSV, News und Terminen.',
+  showNavbar = true,
+} = Astro.props;
+const ogImageUrl = new URL('/og-image.jpg', Astro.url).href;
+---
+
+<!doctype html>
+<html lang="de" class="min-h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <ClientRouter />
+    <script is:inline>
+      (function(){var n=performance.getEntriesByType?.('navigation')?.[0];if(n?.type==='back_forward')document.documentElement.classList.add('no-reveal');})();
+    </script>
+  </head>
+
+  <body class="min-h-screen flex flex-col font-sans antialiased bg-white selection:bg-accent/10 selection:text-accent">
+    <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+    <div class="flex flex-col min-h-screen">
+      
+      {showNavbar && <Navbar />}
+
+      <main id="main" tabindex="-1" class="flex-1 w-full flex flex-col">
+        <div class="flex-1 flex flex-col">
+          <slot />
+        </div>
+      </main>
+
+      <Footer />
+      
+    </div>
+
+    <script>
+      import Lenis from 'lenis';
+
+      const MOBILE_BREAKPOINT = 768;
+      let currentLenis: Lenis | null = null;
+      let rafId: number | null = null;
+      let scrollHandler: (() => void) | null = null;
+      let parallaxHandler: (() => void) | null = null;
+      let mobileMenuOpenHandler: (() => void) | null = null;
+      let mobileMenuCloseHandler: ((e: CustomEvent<{ scrollY?: number }>) => void) | null = null;
+      let resizeHandler: (() => void) | null = null;
+      let anchorScrollHandler: ((e: MouseEvent) => void) | null = null;
+
+      function isDesktop() {
+        return typeof window !== 'undefined' && window.innerWidth >= MOBILE_BREAKPOINT;
+      }
+
+      function cleanup() {
+        if (mobileMenuOpenHandler) {
+          document.removeEventListener('mobile-menu-open', mobileMenuOpenHandler);
+          mobileMenuOpenHandler = null;
+        }
+        if (mobileMenuCloseHandler) {
+          document.removeEventListener('mobile-menu-close', mobileMenuCloseHandler as EventListener);
+          mobileMenuCloseHandler = null;
+        }
+        if (resizeHandler) {
+          window.removeEventListener('resize', resizeHandler);
+          resizeHandler = null;
+        }
+        if (anchorScrollHandler) {
+          document.removeEventListener('click', anchorScrollHandler);
+          anchorScrollHandler = null;
+        }
+        if (rafId != null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        if (currentLenis) {
+          currentLenis.destroy();
+          currentLenis = null;
+        }
+        if (scrollHandler) {
+          window.removeEventListener('scroll', scrollHandler);
+          scrollHandler = null;
+        }
+        if (parallaxHandler) {
+          window.removeEventListener('scroll', parallaxHandler);
+          window.removeEventListener('resize', parallaxHandler);
+          parallaxHandler = null;
+        }
+      }
+
+      function initAnchorScroll() {
+        anchorScrollHandler = (e: MouseEvent) => {
+          const anchor = (e.target as HTMLElement).closest('a[href^="#"]');
+          if (!anchor) return;
+          const href = (anchor as HTMLAnchorElement).getAttribute('href');
+          if (!href || href === '#') return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            if (currentLenis) {
+              currentLenis.scrollTo(target as HTMLElement, { offset: -96 });
+            } else {
+              (target as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        };
+        document.addEventListener('click', anchorScrollHandler);
+      }
+
+      function initLenis() {
+        if (!isDesktop()) return;
+
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          touchMultiplier: 1.5,
+        });
+
+        function raf(time: number) {
+          lenis.raf(time);
+          rafId = requestAnimationFrame(raf);
+        }
+        rafId = requestAnimationFrame(raf);
+
+        currentLenis = lenis;
+
+        mobileMenuOpenHandler = () => currentLenis?.stop();
+        mobileMenuCloseHandler = (e: CustomEvent<{ scrollY?: number }>) => {
+          const scrollY = e.detail?.scrollY ?? 0;
+          requestAnimationFrame(() => {
+            currentLenis?.start();
+            if (scrollY > 0) {
+              currentLenis?.scrollTo(scrollY, { immediate: true });
+            }
+          });
+        };
+        document.addEventListener('mobile-menu-open', mobileMenuOpenHandler);
+        document.addEventListener('mobile-menu-close', mobileMenuCloseHandler as EventListener);
+      }
+
+      function destroyLenis() {
+        if (currentLenis) {
+          currentLenis.destroy();
+          currentLenis = null;
+        }
+        if (rafId != null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        if (mobileMenuOpenHandler) {
+          document.removeEventListener('mobile-menu-open', mobileMenuOpenHandler);
+          mobileMenuOpenHandler = null;
+        }
+        if (mobileMenuCloseHandler) {
+          document.removeEventListener('mobile-menu-close', mobileMenuCloseHandler as EventListener);
+          mobileMenuCloseHandler = null;
+        }
+      }
+
+      function initReveal() {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) {
+          document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('revealed'));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target as HTMLElement;
+              const delay = parseInt(el.dataset.revealDelay || '0', 10);
+              if (delay > 0) {
+                setTimeout(() => el.classList.add('revealed'), delay);
+              } else {
+                el.classList.add('revealed');
+              }
+              observer.unobserve(el);
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+        );
+
+        document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      function initStagger() {
+        document.querySelectorAll('[data-reveal-stagger]').forEach((container) => {
+          const children = container.querySelectorAll('[data-reveal]');
+          const step = parseInt((container as HTMLElement).dataset.revealStagger || '80', 10);
+          children.forEach((child, i) => {
+            (child as HTMLElement).dataset.revealDelay = String(i * step);
+          });
+        });
+      }
+
+      function initScrollProgress() {
+        const bar = document.querySelector('.scroll-progress') as HTMLElement;
+        if (!bar) return;
+        scrollHandler = () => {
+          const h = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = h > 0 ? window.scrollY / h : 0;
+          bar.style.transform = `scaleX(${progress})`;
+        };
+        window.addEventListener('scroll', scrollHandler, { passive: true });
+        scrollHandler();
+      }
+
+      function initParallax() {
+        const els = document.querySelectorAll<HTMLElement>('[data-parallax]');
+        if (!els.length) return;
+        parallaxHandler = () => {
+          const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+          els.forEach((el) => {
+            if (isMobile) {
+              el.style.transform = '';
+              return;
+            }
+            const speed = parseFloat(el.dataset.parallax || '0.3');
+            const rect = el.getBoundingClientRect();
+            const center = rect.top + rect.height / 2;
+            const offset = (center - window.innerHeight / 2) * speed;
+            el.style.transform = `translateY(${offset}px)`;
+          });
+        };
+        window.addEventListener('scroll', parallaxHandler, { passive: true });
+        window.addEventListener('resize', parallaxHandler);
+        parallaxHandler();
+      }
+
+      function boot() {
+        cleanup();
+        initStagger();
+        initReveal();
+        initScrollProgress();
+        initParallax();
+        initAnchorScroll();
+        initLenis();
+
+        resizeHandler = () => {
+          if (isDesktop() && !currentLenis) {
+            initLenis();
+          } else if (!isDesktop() && currentLenis) {
+            destroyLenis();
+          }
+        };
+        window.addEventListener('resize', resizeHandler);
+      }
+
+      boot();
+      document.addEventListener('astro:page-load', boot);
+    </script>
+  </body>
+</html>
