@@ -11,86 +11,148 @@ interface Props {
 const { showCta = true } = Astro.props;
 const sectionId = 'haflinger';
 const subpages = [
-  { id: 'geschichte', title: 'Geschichte', lead: 'Ursprung der Rasse, Meilensteine und Entwicklung im Überblick.', placeholder: 'Inhalte zu Ursprung, Entwicklung und Meilensteinen der Rasse folgen an dieser Stelle. Hier können Sie später Texte, Bilder und Zeitstrahl einbinden.', image: haflingerGeschichte },
-  { id: 'eigenschaften', title: 'Eigenschaften', lead: 'Charakter, Exterieur, Interieur und typische Merkmale.', placeholder: 'Charakter, Exterieur und Interieur – typische Merkmale der Rasse können hier strukturiert dargestellt werden.', image: haflingerEigenschaften },
-  { id: 'verwendung', title: 'Verwendung', lead: 'Einsatz in Zucht, Sport, Freizeit, Therapie und Arbeit.', placeholder: 'Einsatz in Zucht, Sport, Freizeit, Therapie und Arbeit – Inhalte für diese Bereiche können hier gebündelt werden.', image: haflingerVerwendung },
+  {
+    id: 'geschichte',
+    title: 'Geschichte',
+    lead: 'Ursprung der Rasse, Meilensteine und Entwicklung im Überblick.',
+    placeholder:
+      'Der Ursprung des Haflingers liegt in Schluderns in Südtirol. 1874 wurde dort der Hengst 249 Folie geboren, aus der Anpaarung des Araberhengstes 133 El Bedavi XXII mit einer Landstute galizischer Herkunft. 249 Folie gilt bis heute als Stammvater der Rasse. Die offizielle Rassebezeichnung Haflinger wurde 1898 anerkannt.',
+    image: haflingerGeschichte,
+  },
+  {
+    id: 'eigenschaften',
+    title: 'Eigenschaften',
+    lead: 'Charakter, Exterieur, Interieur und typische Merkmale.',
+    placeholder:
+      'Der Haflinger ist menschenbezogen, lernbereit und nervenstark. Typisch sind Fuchsfarbe mit hellem Langhaar, ein robustes Fundament und ein harmonischer Körperbau. Als Richtwerte gelten im dritten Lebensjahr etwa 148 bis 152 cm bei Hengsten und 147 bis 150 cm bei Stuten, jeweils mit klarer Obergrenze.',
+    image: haflingerEigenschaften,
+  },
+  {
+    id: 'verwendung',
+    title: 'Verwendung',
+    lead: 'Einsatz in Zucht, Sport, Freizeit, Therapie und Arbeit.',
+    placeholder:
+      'Heute wird der Haflinger in vielen Disziplinen eingesetzt: als zuverlässiges Freizeitpferd, als Familienpferd und im Turniersport. Ob Dressur, Fahren, Gelände, Western, Wanderreiten, Skijöring, Voltigieren oder Hippotherapie - die Vielseitigkeit macht die Rasse weltweit attraktiv.',
+    image: haflingerVerwendung,
+  },
 ];
 ---
 
-<section id={sectionId} class="py-20 sm:py-24 bg-white border-t border-black/5 overflow-hidden">
+<section
+  id={sectionId}
+  class="py-20 sm:py-24 bg-white border-t border-black/5 overflow-hidden"
+>
   <div class="site-container">
-    
     <!-- Section Header -->
     <header class="mb-12 sm:mb-16" data-reveal="fade-up">
-      <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3">
+      <p
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3"
+      >
         Der Haflinger
       </p>
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-5 text-balance">
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-5 text-balance"
+      >
         Geschichte, Eigenschaften und Verwendung
       </h2>
       <p class="text-lg text-gray-600 leading-relaxed max-w-2xl">
-        Der Haflinger steht für Verlässlichkeit, Vielseitigkeit und Tradition. Als Rasse mit klaren Standards verbindet er Zuchtziele mit sportlicher Leistung und Familienfreundlichkeit.
+        Der Haflinger steht für Verlässlichkeit, Vielseitigkeit und Tradition.
+        Als international anerkanntes Haflinger Pferd verbindet er klare
+        Zuchtziele mit sportlicher Leistung, Robustheit und
+        Familienfreundlichkeit.
       </p>
     </header>
 
     <!-- Header Image -->
     <div class="mb-16 sm:mb-20 rounded-2xl overflow-hidden" data-reveal="scale">
-      <Image src={haflingerHeader} alt="Der Haflinger – Geschichte, Eigenschaften und Verwendung" class="w-full h-auto object-cover aspect-[21/9]" width={1280} height={548} />
+      <Image
+        src={haflingerHeader}
+        alt="Der Haflinger – Geschichte, Eigenschaften und Verwendung"
+        class="w-full h-auto object-cover aspect-21/9"
+        width={1280}
+        height={548}
+      />
     </div>
 
     <!-- Content Cards -->
     <div class="space-y-6 sm:space-y-8" data-reveal-stagger="120">
-      {subpages.map((item, index) => (
-        <article id={`${sectionId}-${item.id}`} class="scroll-mt-28" data-reveal="fade-up">
-          <div class="haflinger-card group">
-            <div class="flex flex-col sm:flex-row gap-6 sm:gap-8">
-              
-              <div class="haflinger-card-img shrink-0">
-                <Image src={item.image} alt={item.title} class="aspect-[4/3] sm:w-40 sm:aspect-square rounded-xl object-cover w-full h-full" width={320} height={320} />
-              </div>
+      {
+        subpages.map((item, index) => (
+          <article
+            id={`${sectionId}-${item.id}`}
+            class="scroll-mt-28"
+            data-reveal="fade-up"
+          >
+            <div class="haflinger-card group">
+              <div class="flex flex-col sm:flex-row gap-6 sm:gap-8">
+                <div class="haflinger-card-img shrink-0">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    class="aspect-4/3 sm:w-40 sm:aspect-square rounded-xl object-cover w-full h-full"
+                    width={320}
+                    height={320}
+                  />
+                </div>
 
-              <div class="sm:w-40 shrink-0">
-                <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 leading-tight">
-                  {item.title}
-                </h3>
-              </div>
+                <div class="sm:w-40 shrink-0">
+                  <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 leading-tight">
+                    {item.title}
+                  </h3>
+                </div>
 
-              <div class="flex-1 min-w-0">
-                <p class="text-base text-gray-900 font-medium leading-relaxed mb-4">
-                  {item.lead}
-                </p>
-                <p class="placeholder-text">
-                  {item.placeholder}
-                </p>
+                <div class="flex-1 min-w-0">
+                  <p class="text-base text-gray-900 font-medium leading-relaxed mb-4">
+                    {item.lead}
+                  </p>
+                  <p class="placeholder-text">{item.placeholder}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))
+      }
     </div>
 
     <!-- Quote Block -->
     <div class="my-16 sm:my-20" data-reveal="blur">
       <div class="quote-block">
-        <p>Der Haflinger vereint Kraft und Sanftmut wie kaum eine andere Rasse – ein Pferd, das Berge bewegt und Herzen berührt.</p>
+        <p>
+          Der Haflinger vereint Kraft, Nervenstärke und Charakterstärke - ein
+          Pferd für Zucht, Alltag und sportliche Perspektiven.
+        </p>
         <cite>HWZSV Leitbild</cite>
       </div>
     </div>
 
-    {showCta && (
-      <div class="pt-8 border-t border-black/5" data-reveal="fade-up">
-        <a href="/haflinger" class="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group btn-glow">
-          Zur Haflinger-Seite
-          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
-    )}
-
+    {
+      showCta && (
+        <div class="pt-8 border-t border-black/5" data-reveal="fade-up">
+          <a
+            href="/haflinger"
+            class="inline-flex items-center justify-center gap-2 min-h-12 px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group btn-glow"
+          >
+            Zur Haflinger-Seite
+            <svg
+              class="w-4 h-4 transition-transform group-hover:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -105,7 +167,9 @@ const subpages = [
   }
 
   @media (min-width: 640px) {
-    .haflinger-card { padding: 32px; }
+    .haflinger-card {
+      padding: 32px;
+    }
   }
 
   .haflinger-card:hover {
@@ -119,10 +183,15 @@ const subpages = [
     max-width: 200px;
   }
   @media (min-width: 640px) {
-    .haflinger-card-img { width: 160px; max-width: none; }
+    .haflinger-card-img {
+      width: 160px;
+      max-width: none;
+    }
   }
 
   @media (max-width: 639px) {
-    .haflinger-card { padding: 20px; }
+    .haflinger-card {
+      padding: 20px;
+    }
   }
 </style>

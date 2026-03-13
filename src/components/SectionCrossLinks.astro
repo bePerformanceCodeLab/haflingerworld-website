@@ -6,12 +6,50 @@ interface Props {
 const { excludePath } = Astro.props;
 
 const allPages = [
-  { href: '/haflinger', label: 'Haflinger', subs: ['Geschichte', 'Eigenschaften', 'Verwendung'] },
-  { href: '/zucht', label: 'Zucht', subs: ['Rassegrundsätze', 'Richtlinien', 'Zuchtprogramme', 'Datenbanken', 'Hengste'] },
-  { href: '/netzwerk', label: 'Internationales Netzwerk', subs: ['Mitgliedsorganisationen', 'Sportorganisationen', 'Behörden'] },
-  { href: '/hwzsv', label: 'HWZSV', subs: ['Intro', 'Satzungen', 'Zuständigkeiten', 'Gremien'] },
-  { href: '/news', label: 'News', subs: ['Berichte', 'Fotos', 'Downloads', 'Newsletter'] },
-  { href: '/events', label: 'Events & Kalender', subs: ['Internationale Termine', 'Veranstaltungskalender'] },
+  {
+    href: '/haflinger',
+    label: 'Haflinger',
+    subs: ['Geschichte', 'Eigenschaften', 'Verwendung'],
+  },
+  {
+    href: '/zucht',
+    label: 'Zucht',
+    subs: ['Rassegrundsätze', 'Zuchtbuch', 'Deckhengste'],
+  },
+  {
+    href: '/mitglieder',
+    label: 'Mitglieder',
+    subs: [
+      'Ordentliche Mitglieder',
+      'Außerordentliche Mitglieder',
+      'Länderübersicht',
+    ],
+  },
+  {
+    href: '/netzwerk',
+    label: 'Internationales Netzwerk',
+    subs: ['Mitgliedsorganisationen', 'Sportorganisationen', 'Behörden'],
+  },
+  {
+    href: '/projekte',
+    label: 'Projekte',
+    subs: ['Richterschulung', 'Harmonisierung', 'Datenqualität'],
+  },
+  {
+    href: '/hwzsv',
+    label: 'HWZSV',
+    subs: ['Überblick', 'Satzungen', 'Zuständigkeiten', 'Gremien'],
+  },
+  {
+    href: '/news',
+    label: 'News',
+    subs: ['Berichte', 'Fotos', 'Downloads', 'Newsletter'],
+  },
+  {
+    href: '/events',
+    label: 'Events & Kalender',
+    subs: ['Weltausstellung', 'Weltkongress', 'Veranstaltungskalender'],
+  },
 ];
 
 const pathNorm = excludePath.replace(/\/$/, '') || '/';
@@ -21,33 +59,56 @@ const links = allPages.filter((p) => {
 });
 ---
 
-<section class="relative z-10 bg-white border-t border-black/5" data-reveal="fade-up">
+<section
+  class="relative z-10 bg-white border-t border-black/5"
+  data-reveal="fade-up"
+>
   <div class="site-container py-16 sm:py-20">
-    <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-8" data-reveal="fade-up">
+    <p
+      class="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-8"
+      data-reveal="fade-up"
+    >
       Mehr Themen entdecken
     </p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4" role="navigation" aria-label="Schnellzugriff zu Bereichen" data-reveal-stagger="60">
-      {links.map((item) => (
-        <a href={item.href} class="quick-jump-card" data-reveal="fade-up">
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex-1 min-w-0">
-              <h3 class="quick-jump-title">{item.label}</h3>
-              {item.subs.length > 0 && (
-                <p class="quick-jump-subs">
-                  {item.subs.slice(0, 3).join(' · ')}{item.subs.length > 3 ? ' …' : ''}
-                </p>
-              )}
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
+      role="navigation"
+      aria-label="Schnellzugriff zu Bereichen"
+      data-reveal-stagger="60"
+    >
+      {
+        links.map((item) => (
+          <a href={item.href} class="quick-jump-card" data-reveal="fade-up">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex-1 min-w-0">
+                <h3 class="quick-jump-title">{item.label}</h3>
+                {item.subs.length > 0 && (
+                  <p class="quick-jump-subs">
+                    {item.subs.slice(0, 3).join(' · ')}
+                    {item.subs.length > 3 ? ' …' : ''}
+                  </p>
+                )}
+              </div>
+              <div class="quick-jump-arrow">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </div>
             </div>
-            <div class="quick-jump-arrow">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 17L17 7"/>
-                <path d="M7 7h10v10"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      ))}
+          </a>
+        ))
+      }
       <a href="/" class="quick-jump-card" data-reveal="fade-up">
         <div class="flex items-center justify-between gap-3">
           <div class="flex-1 min-w-0">
@@ -55,9 +116,18 @@ const links = allPages.filter((p) => {
             <p class="quick-jump-subs">Übersicht · Alle Bereiche</p>
           </div>
           <div class="quick-jump-arrow">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M7 17L17 7"/>
-              <path d="M7 7h10v10"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 17L17 7"></path>
+              <path d="M7 7h10v10"></path>
             </svg>
           </div>
         </div>
@@ -78,7 +148,9 @@ const links = allPages.filter((p) => {
   }
 
   @media (min-width: 640px) {
-    .quick-jump-card { padding: 24px; }
+    .quick-jump-card {
+      padding: 24px;
+    }
   }
 
   .quick-jump-card:hover {
@@ -97,10 +169,15 @@ const links = allPages.filter((p) => {
   }
 
   @media (min-width: 640px) {
-    .quick-jump-title { font-size: 16px; margin-bottom: 8px; }
+    .quick-jump-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
   }
 
-  .quick-jump-card:hover .quick-jump-title { color: #86172c; }
+  .quick-jump-card:hover .quick-jump-title {
+    color: #86172c;
+  }
 
   .quick-jump-subs {
     font-size: 12px;
@@ -112,7 +189,9 @@ const links = allPages.filter((p) => {
   }
 
   @media (min-width: 640px) {
-    .quick-jump-subs { font-size: 13px; }
+    .quick-jump-subs {
+      font-size: 13px;
+    }
   }
 
   .quick-jump-arrow {
@@ -127,7 +206,10 @@ const links = allPages.filter((p) => {
   }
 
   @media (min-width: 640px) {
-    .quick-jump-arrow { width: 32px; height: 32px; }
+    .quick-jump-arrow {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   .quick-jump-card:hover .quick-jump-arrow {
@@ -136,10 +218,14 @@ const links = allPages.filter((p) => {
   }
 
   @media (max-width: 639px) {
-    .quick-jump-card { min-height: 88px; }
+    .quick-jump-card {
+      min-height: 88px;
+    }
   }
 
   @media (min-width: 640px) {
-    .quick-jump-card { min-height: 96px; }
+    .quick-jump-card {
+      min-height: 96px;
+    }
   }
 </style>

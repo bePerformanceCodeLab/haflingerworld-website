@@ -6,10 +6,14 @@ import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
 import CtaBanner from '@/components/CtaBanner.astro';
 ---
 
-<MainLayout title="HWZSV – Über uns" description="Die Haflinger Welt-Zucht- und Sportvereinigung: Aufgaben, Satzungen, Zuständigkeiten und Gremien." showNavbar={true}>
+<MainLayout
+  title="HWZSV: Haflinger Weltverband & Organisation"
+  description="Die HWZSV ist die internationale Haflinger Organisation mit Satzungen, Zuständigkeiten, Gremien und Projekten - inklusive kompakter Statutenübersicht."
+  showNavbar={true}
+>
   <PageHero
     title="HWZSV"
-    lead="Aufgaben, Satzungen, Zuständigkeiten und Gremien – die Strukturen hinter der internationalen Zusammenarbeit."
+    lead="Aufgaben, Satzungen, Zuständigkeiten und Gremien des internationalen Haflinger Weltverbands."
     accent="Über die Vereinigung"
     breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'HWZSV' }]}
   />
@@ -18,7 +22,7 @@ import CtaBanner from '@/components/CtaBanner.astro';
   <SectionCrossLinks excludePath="/hwzsv" />
 
   <CtaBanner
-    title="Mehr über die HWZSV erfahren?"
-    text="Wir informieren Sie gerne über unsere Arbeit, Satzungen und aktuelle Projekte."
+    title="Satzungen oder Verbandsfragen?"
+    text="Wir informieren Sie gerne über Statuten, Zuständigkeiten und die Verbandsarbeit als internationaler Haflinger Zuchtverband und Sportpartner."
   />
 </MainLayout>

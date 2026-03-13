@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
+import { newsArticles, type NewsArticle } from '@/data/news';
+
+export function getStaticPaths() {
+  return newsArticles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: NewsArticle;
+}
+
+const { article } = Astro.props;
+---
+
+<MainLayout
+  title={`${article.title} | HWZSV News`}
+  description={article.excerpt}
+  showNavbar={true}
+>
+  <PageHero
+    title={article.title}
+    lead={article.lead}
+    accent={article.category}
+    breadcrumbItems={[
+      { label: 'Startseite', href: '/' },
+      { label: 'News', href: '/news' },
+      { label: article.title },
+    ]}
+  />
+
+  <section class="py-14 sm:py-18 bg-white border-t border-black/5">
+    <div class="site-container max-w-4xl">
+      <p class="text-sm text-gray-500 mb-5">
+        <time datetime={article.dateTime}>{article.dateLabel}</time>
+        <span class="mx-2">·</span>
+        <span class="font-semibold text-accent">{article.category}</span>
+      </p>
+
+      <div class="rounded-2xl overflow-hidden border border-black/5 mb-8">
+        <Image
+          src={article.image}
+          alt={article.title}
+          class="w-full h-auto object-cover aspect-[16/8]"
+          width={1280}
+          height={640}
+        />
+      </div>
+
+      <article
+        class="prose prose-zinc max-w-none prose-headings:tracking-tight prose-p:leading-relaxed"
+      >
+        {article.content.map((paragraph) => <p>{paragraph}</p>)}
+      </article>
+
+      <div class="mt-10 pt-6 border-t border-black/5">
+        <a
+          href="/news"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors"
+        >
+          <span aria-hidden="true">&larr;</span>
+          Zur News-Uebersicht
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <SectionCrossLinks excludePath="/news" />
+</MainLayout>

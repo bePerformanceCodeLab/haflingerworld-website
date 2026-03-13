@@ -6,12 +6,19 @@ import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
 import CtaBanner from '@/components/CtaBanner.astro';
 ---
 
-<MainLayout title="Netzwerk – HWZSV" description="Das internationale Netzwerk der HWZSV: Mitgliedsorganisationen, Sportorganisationen und Behörden weltweit." showNavbar={true}>
+<MainLayout
+  title="Haflinger Netzwerk weltweit | HWZSV"
+  description="Internationales Haflinger Netzwerk mit Mitgliedsorganisationen, Sportorganisationen und Behörden - inklusive Partnern aus Südtirol, Österreich und Europa."
+  showNavbar={true}
+>
   <PageHero
     title="Internationales Netzwerk"
-    lead="Mitgliedsorganisationen, Sportorganisationen und Behörden – die HWZSV verbindet die Haflinger-Welt über Ländergrenzen hinweg."
+    lead="Mitgliedsorganisationen, Sportorganisationen und Behörden: die HWZSV verbindet die Haflinger-Welt über Ländergrenzen hinweg."
     accent="Weltweit vernetzt"
-    breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'Netzwerk' }]}
+    breadcrumbItems={[
+      { label: 'Startseite', href: '/' },
+      { label: 'Netzwerk' },
+    ]}
   />
 
   <SectionNetzwerk showCta={false} />
@@ -19,7 +26,7 @@ import CtaBanner from '@/components/CtaBanner.astro';
 
   <CtaBanner
     title="Teil des Netzwerks werden?"
-    text="Erfahren Sie, wie Ihre Organisation Mitglied der HWZSV werden kann."
+    text="Erfahren Sie, wie Ihr Verband oder Ihre Organisation Mitglied im internationalen Netzwerk werden kann."
     buttonLabel="Kontakt aufnehmen"
   />
 </MainLayout>

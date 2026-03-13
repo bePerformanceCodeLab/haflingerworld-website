@@ -3,62 +3,154 @@ import { Image } from 'astro:assets';
 import heroImage from '@/images/hero/hero.webp';
 
 const quickJump = [
-  { href: '#haflinger', label: 'Haflinger', subs: ['Geschichte', 'Eigenschaften', 'Verwendung'] },
-  { href: '#zucht', label: 'Zucht', subs: ['Rassegrundsätze', 'Richtlinien', 'Zuchtprogramme', 'Datenbanken', 'Hengste'] },
-  { href: '#netzwerk', label: 'Internationales Netzwerk', subs: ['Mitgliedsorganisationen', 'Sportorganisationen', 'Behörden'] },
-  { href: '#hwzsv', label: 'HWZSV', subs: ['Intro', 'Satzungen', 'Zuständigkeiten', 'Gremien'] },
-  { href: '#news', label: 'News', subs: ['Berichte', 'Fotos', 'Downloads', 'Newsletter'] },
-  { href: '#events', label: 'Events & Kalender', subs: ['Internationale Termine', 'Veranstaltungskalender'] },
+  {
+    href: '#haflinger',
+    label: 'Haflinger',
+    subs: ['Ursprung in Südtirol', 'Größe', 'Sport & Verwendung'],
+  },
+  {
+    href: '#zucht',
+    label: 'Zucht',
+    subs: [
+      'Haflinger Zuchtbuch',
+      'Richtlinien',
+      'Zuchtprogramme',
+      'Deckhengste',
+    ],
+  },
+  {
+    href: '/mitglieder',
+    label: 'Mitglieder',
+    subs: ['Ordentliche Mitglieder', 'Außerordentliche Mitglieder', 'Länder'],
+  },
+  {
+    href: '#netzwerk',
+    label: 'Internationales Netzwerk',
+    subs: ['Mitgliedsorganisationen', 'Sportorganisationen', 'Behörden'],
+  },
+  {
+    href: '/projekte',
+    label: 'Projekte',
+    subs: ['Richterschulung', 'Harmonisierung', 'Datenqualität'],
+  },
+  {
+    href: '#hwzsv',
+    label: 'HWZSV',
+    subs: ['Weltverband', 'Satzungen', 'Zuständigkeiten', 'Gremien'],
+  },
+  {
+    href: '#news',
+    label: 'News',
+    subs: ['Berichte', 'Haflinger Pferde Bilder', 'Downloads', 'Newsletter'],
+  },
+  {
+    href: '#events',
+    label: 'Events & Kalender',
+    subs: ['Europachampionat', 'Hengstkörung', 'Weltkongress'],
+  },
 ];
 
 const stats = [
-  { value: '40+', label: 'Länder' },
-  { value: '100+', label: 'Jahre Tradition' },
-  { value: '1.000+', label: 'Züchter weltweit' },
   { value: '25+', label: 'Mitgliedsorganisationen' },
+  { value: '3', label: 'Sprachen im Verband' },
+  { value: '1', label: 'Gemeinsamer Weltverband' },
+  { value: '100+', label: 'Jahre Rassegeschichte' },
 ];
 ---
 
-<section id="top" class="relative w-full overflow-hidden border-b border-black/5">
+<section
+  id="top"
+  class="relative -mt-16 sm:-mt-[72px] pt-16 sm:pt-[72px] w-full overflow-hidden border-b border-black/5"
+>
   <!-- Hero Background -->
   <div class="hero-bg-placeholder absolute inset-0 z-0" aria-hidden="true">
-    <div data-parallax="0.15" class="absolute inset-0 rounded-none overflow-hidden" style="will-change: transform;">
-      <Image src={heroImage} alt="" class="absolute inset-0 w-full h-full object-cover object-[center_95%]" width={1920} height={1080} />
+    <div
+      data-parallax="0.15"
+      class="absolute inset-0 rounded-none overflow-hidden"
+      style="will-change: transform;"
+    >
+      <Image
+        src={heroImage}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover object-center scale-[1.08] sm:scale-[1.04]"
+        width={1920}
+        height={1080}
+      />
     </div>
   </div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 min-h-[60dvh] sm:min-h-[70dvh] flex items-center justify-center">
-    <div class="absolute inset-0 z-0 bg-gradient-to-b from-gray-100/75 via-gray-50/65 to-white/90 pointer-events-none" aria-hidden="true"></div>
-    <div class="relative z-10 site-container text-center py-16 sm:py-20">
-      
+  <div
+    class="relative z-10 min-h-[52dvh] sm:min-h-[62dvh] flex items-center justify-center"
+  >
+    <div
+      class="absolute inset-0 z-0 bg-linear-to-b from-gray-100/75 via-gray-50/65 to-white/90 pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="relative z-10 site-container text-center py-10 sm:py-14">
       <!-- Badge -->
       <div data-reveal="fade-up">
-        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur border border-black/5 shadow-sm mb-6">
-          <span class="text-[11px] font-bold tracking-[0.15em] uppercase text-gray-500">Haflinger International</span>
+        <span
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur border border-black/5 shadow-sm mb-6"
+        >
+          <span
+            class="text-[11px] font-bold tracking-[0.15em] uppercase text-gray-500"
+            >Haflinger World · HWZSV</span
+          >
         </span>
       </div>
 
       <!-- Headline -->
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-tight mb-6 text-balance leading-[1.1]" data-reveal="fade-up" data-reveal-delay="80">
-        Weltweit vernetzt für Zucht, Sport und Tradition
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-tight mb-6 text-balance leading-[1.1]"
+        data-reveal="fade-up"
+        data-reveal-delay="80"
+      >
+        Der internationale Haflinger Weltverband für Zucht und Sport
       </h1>
 
       <!-- Description -->
-      <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed text-balance" data-reveal="fade-up" data-reveal-delay="160">
-        Die HWZSV verbindet Mitgliedsorganisationen, Züchterinnen und Züchter sowie den Sportbereich und schafft klare Standards für die Zukunft der Rasse.
+      <p
+        class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed text-balance"
+        data-reveal="fade-up"
+        data-reveal-delay="160"
+      >
+        Die HWZSV verbindet Haflinger Zuchtverband, Haflinger Sportvereinigung
+        und Partnerorganisationen weltweit. So bleiben Zucht, Leistung und
+        Herkunft im Gleichgewicht.
       </p>
 
       <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3" data-reveal="fade-up" data-reveal-delay="240">
-        <a href="#haflinger" class="group btn-glow w-full sm:w-auto min-h-[48px] px-8 py-3.5 bg-gray-900 text-white text-sm font-semibold tracking-wide rounded-xl flex items-center justify-center gap-2 transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5">
-          <span>Zum Haflinger</span>
-          <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center gap-3"
+        data-reveal="fade-up"
+        data-reveal-delay="240"
+      >
+        <a
+          href="#haflinger"
+          class="group btn-glow w-full sm:w-auto min-h-12 px-8 py-3.5 bg-gray-900 text-white text-sm font-semibold tracking-wide rounded-xl flex items-center justify-center gap-2 transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
+        >
+          <span>Zum Haflinger Pferd</span>
+          <svg
+            class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
           </svg>
         </a>
-        <a href="#kontakt" class="w-full sm:w-auto min-h-[48px] px-8 py-3.5 bg-white text-gray-700 border border-black/6 text-sm font-semibold rounded-xl backdrop-blur flex items-center justify-center transition-all duration-200 hover:bg-gray-50 hover:border-black/10 hover:-translate-y-0.5">
-          Kontakt
+        <a
+          href="#netzwerk"
+          class="w-full sm:w-auto min-h-12 px-8 py-3.5 bg-white text-gray-700 border border-black/6 text-sm font-semibold rounded-xl backdrop-blur flex items-center justify-center transition-all duration-200 hover:bg-gray-50 hover:border-black/10 hover:-translate-y-0.5"
+        >
+          Netzwerk entdecken
         </a>
       </div>
     </div>
@@ -68,12 +160,14 @@ const stats = [
   <div class="relative z-10 bg-white border-t border-black/5">
     <div class="site-container py-10 sm:py-12">
       <div class="stats-bar" data-reveal="fade-up">
-        {stats.map((stat) => (
-          <div class="stats-bar-item">
-            <span class="stats-bar-number">{stat.value}</span>
-            <span class="stats-bar-label">{stat.label}</span>
-          </div>
-        ))}
+        {
+          stats.map((stat) => (
+            <div class="stats-bar-item">
+              <span class="stats-bar-number">{stat.value}</span>
+              <span class="stats-bar-label">{stat.label}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>
@@ -81,31 +175,51 @@ const stats = [
   <!-- Quick Jump -->
   <div class="relative z-10 bg-white border-t border-black/5">
     <div class="site-container py-16 sm:py-20">
-      <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-8" data-reveal="fade-up">
+      <p
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-8"
+        data-reveal="fade-up"
+      >
         Direkt zum Thema
       </p>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4" role="navigation" aria-label="Schnellzugriff zu Bereichen" data-reveal-stagger="60">
-        {quickJump.map((item) => (
-          <a href={item.href} class="quick-jump-card" data-reveal="fade-up">
-            <div class="flex items-center justify-between gap-3">
-              <div class="flex-1 min-w-0">
-                <h3 class="quick-jump-title">{item.label}</h3>
-                {item.subs.length > 0 && (
-                  <p class="quick-jump-subs">
-                    {item.subs.slice(0, 3).join(' · ')}{item.subs.length > 3 ? ' …' : ''}
-                  </p>
-                )}
+
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
+        role="navigation"
+        aria-label="Schnellzugriff zu Bereichen"
+        data-reveal-stagger="60"
+      >
+        {
+          quickJump.map((item) => (
+            <a href={item.href} class="quick-jump-card" data-reveal="fade-up">
+              <div class="flex items-center justify-between gap-3">
+                <div class="flex-1 min-w-0">
+                  <h3 class="quick-jump-title">{item.label}</h3>
+                  {item.subs.length > 0 && (
+                    <p class="quick-jump-subs">
+                      {item.subs.slice(0, 3).join(' · ')}
+                      {item.subs.length > 3 ? ' …' : ''}
+                    </p>
+                  )}
+                </div>
+                <div class="quick-jump-arrow">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </div>
               </div>
-              <div class="quick-jump-arrow">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 17L17 7"/>
-                  <path d="M7 7h10v10"/>
-                </svg>
-              </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>
@@ -123,7 +237,9 @@ const stats = [
   }
 
   @media (min-width: 640px) {
-    .quick-jump-card { padding: 24px; }
+    .quick-jump-card {
+      padding: 24px;
+    }
   }
 
   .quick-jump-card:hover {
@@ -142,10 +258,15 @@ const stats = [
   }
 
   @media (min-width: 640px) {
-    .quick-jump-title { font-size: 16px; margin-bottom: 8px; }
+    .quick-jump-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
   }
 
-  .quick-jump-card:hover .quick-jump-title { color: #86172c; }
+  .quick-jump-card:hover .quick-jump-title {
+    color: #86172c;
+  }
 
   .quick-jump-subs {
     font-size: 12px;
@@ -157,7 +278,9 @@ const stats = [
   }
 
   @media (min-width: 640px) {
-    .quick-jump-subs { font-size: 13px; }
+    .quick-jump-subs {
+      font-size: 13px;
+    }
   }
 
   .quick-jump-arrow {
@@ -172,7 +295,10 @@ const stats = [
   }
 
   @media (min-width: 640px) {
-    .quick-jump-arrow { width: 32px; height: 32px; }
+    .quick-jump-arrow {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   .quick-jump-card:hover .quick-jump-arrow {
@@ -181,10 +307,14 @@ const stats = [
   }
 
   @media (max-width: 639px) {
-    .quick-jump-card { min-height: 88px; }
+    .quick-jump-card {
+      min-height: 88px;
+    }
   }
 
   @media (min-width: 640px) {
-    .quick-jump-card { min-height: 96px; }
+    .quick-jump-card {
+      min-height: 96px;
+    }
   }
 </style>

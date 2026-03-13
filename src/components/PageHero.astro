@@ -16,28 +16,46 @@ const { title, lead, breadcrumbItems, accent } = Astro.props;
     <div data-reveal="fade-up">
       <Breadcrumb items={breadcrumbItems} />
     </div>
-    {accent && (
-      <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3" data-reveal="fade-up" data-reveal-delay="50">
-        {accent}
-      </p>
-    )}
-    <div class="page-hero-title-wrapper" data-reveal="fade-up" data-reveal-delay="100">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight text-balance leading-[1.1]">
+    {
+      accent && (
+        <p
+          class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3"
+          data-reveal="fade-up"
+          data-reveal-delay="50"
+        >
+          {accent}
+        </p>
+      )
+    }
+    <div
+      class="page-hero-title-wrapper"
+      data-reveal="fade-up"
+      data-reveal-delay="100"
+    >
+      <h1
+        class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight text-balance leading-[1.1]"
+      >
         {title}
       </h1>
     </div>
-    {lead && (
-      <p class="text-lg text-gray-600 leading-relaxed max-w-2xl text-balance mt-5" data-reveal="fade-up" data-reveal-delay="150">
-        {lead}
-      </p>
-    )}
+    {
+      lead && (
+        <p
+          class="text-lg text-gray-600 leading-relaxed max-w-2xl text-balance mt-5"
+          data-reveal="fade-up"
+          data-reveal-delay="150"
+        >
+          {lead}
+        </p>
+      )
+    }
   </div>
 </div>
 
 <style>
   .page-hero-wrapper {
-    padding-top: 40px;
-    padding-bottom: 48px;
+    padding-top: 28px;
+    padding-bottom: 36px;
     background: linear-gradient(to bottom, #fafafa, white);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     position: relative;
@@ -45,15 +63,15 @@ const { title, lead, breadcrumbItems, accent } = Astro.props;
 
   @media (min-width: 640px) {
     .page-hero-wrapper {
-      padding-top: 48px;
-      padding-bottom: 56px;
+      padding-top: 36px;
+      padding-bottom: 44px;
     }
   }
 
   @media (min-width: 1024px) {
     .page-hero-wrapper {
-      padding-top: 56px;
-      padding-bottom: 64px;
+      padding-top: 44px;
+      padding-bottom: 52px;
     }
   }
 

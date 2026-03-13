@@ -1,0 +1,73 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+
+const projekte = [
+  {
+    title: 'Einheitliche Richterschulung',
+    text: 'Fortlaufende Aus- und Weiterbildung von Richterinnen, Richtern und Rasseexpertinnen/-experten für nachvollziehbare und vergleichbare Bewertungen.',
+  },
+  {
+    title: 'Harmonisierung der Zucht',
+    text: 'Abstimmung zentraler Zuchtgrundlagen zwischen den Mitgliedsorganisationen, um Transparenz und internationale Vergleichbarkeit zu verbessern.',
+  },
+  {
+    title: 'Datenqualität und Zuchtbuch',
+    text: 'Stärkung der Datengrundlage in Abstammung, Leistungsdaten und Dokumentation zur Unterstützung von Züchtern und Verbänden.',
+  },
+  {
+    title: 'Digitale Kommunikation',
+    text: 'Ausbau der mehrsprachigen Kommunikation und Bereitstellung relevanter Informationen für Mitglieder, Züchter und Interessierte.',
+  },
+  {
+    title: 'Zucht und Sport verbinden',
+    text: 'Weiterentwicklung gemeinsamer Formate, damit Zuchtziele und sportliche Anforderungen international besser zusammenwirken.',
+  },
+];
+---
+
+<MainLayout
+  title="Projekte der HWZSV | Zucht, Sport und Zusammenarbeit"
+  description="Laufende Projekte der Haflinger Welt-Zucht- und Sportvereinigung: Richterschulung, Harmonisierung der Zucht, Datenqualität und internationale Zusammenarbeit."
+  showNavbar={true}
+>
+  <PageHero
+    title="Projekte"
+    lead="Die HWZSV arbeitet an konkreten Projekten für Qualität, Vergleichbarkeit und internationale Zusammenarbeit in Zucht und Sport."
+    accent="Aktuelle Arbeitsschwerpunkte"
+    breadcrumbItems={[
+      { label: 'Startseite', href: '/' },
+      { label: 'Projekte' },
+    ]}
+  />
+
+  <section class="py-16 sm:py-20 bg-white border-t border-black/5">
+    <div class="site-container">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        {
+          projekte.map((projekt, index) => (
+            <article class="rounded-2xl border border-black/5 bg-gray-50 p-6 sm:p-7">
+              <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3">
+                {String(index + 1).padStart(2, '0')}
+              </p>
+              <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                {projekt.title}
+              </h2>
+              <p class="text-gray-700 leading-relaxed">{projekt.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <SectionCrossLinks excludePath="/projekte" />
+
+  <CtaBanner
+    title="Projektideen oder Kooperationen?"
+    text="Sprechen Sie mit uns über gemeinsame Vorhaben in den Bereichen Zucht, Sport und Wissensaustausch."
+    buttonLabel="Kontakt aufnehmen"
+  />
+</MainLayout>

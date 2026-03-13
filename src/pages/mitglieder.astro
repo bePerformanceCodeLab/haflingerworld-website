@@ -1,0 +1,1041 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+
+const googleMapsApiKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY ?? '';
+
+const ordentlicheMitglieder = [
+  'Australien',
+  'Belgien',
+  'Bulgarien',
+  'Dänemark',
+  'Deutschland',
+  'Frankreich',
+  'Großbritannien',
+  'Italien',
+  'Kanada',
+  'Luxemburg',
+  'Niederlande',
+  'Österreich',
+  'Schweden',
+  'Schweiz',
+  'Slowakei',
+  'Slowenien',
+  'Tschechische Republik',
+  'Ungarn',
+  'USA',
+];
+
+const ausserordentlicheMitglieder = ['Dänemark', 'Deutschland'];
+
+const memberSpots = [
+  {
+    country: 'Australien',
+    region: 'Ozeanien',
+    lat: -25.2744,
+    lng: 133.7751,
+    type: 'ordentlich',
+    cityHint: 'Sydney / Melbourne',
+  },
+  {
+    country: 'Belgien',
+    region: 'Europa',
+    lat: 50.8503,
+    lng: 4.3517,
+    type: 'ordentlich',
+    cityHint: 'Brüssel',
+  },
+  {
+    country: 'Bulgarien',
+    region: 'Europa',
+    lat: 42.6977,
+    lng: 23.3219,
+    type: 'ordentlich',
+    cityHint: 'Sofia',
+  },
+  {
+    country: 'Dänemark',
+    region: 'Europa',
+    lat: 55.6761,
+    lng: 12.5683,
+    type: 'ordentlich+außerordentlich',
+    cityHint: 'Kopenhagen',
+  },
+  {
+    country: 'Deutschland',
+    region: 'Europa',
+    lat: 52.52,
+    lng: 13.405,
+    type: 'ordentlich+außerordentlich',
+    cityHint: 'Berlin / Verbandsstandorte',
+  },
+  {
+    country: 'Frankreich',
+    region: 'Europa',
+    lat: 48.8566,
+    lng: 2.3522,
+    type: 'ordentlich',
+    cityHint: 'Paris / Regionen',
+  },
+  {
+    country: 'Großbritannien',
+    region: 'Europa',
+    lat: 51.5072,
+    lng: -0.1276,
+    type: 'ordentlich',
+    cityHint: 'London',
+  },
+  {
+    country: 'Italien',
+    region: 'Europa',
+    lat: 46.4983,
+    lng: 11.3548,
+    type: 'ordentlich',
+    cityHint: 'Bozen / Südtirol',
+  },
+  {
+    country: 'Kanada',
+    region: 'Nordamerika',
+    lat: 43.6532,
+    lng: -79.3832,
+    type: 'ordentlich',
+    cityHint: 'Ontario / Alberta',
+  },
+  {
+    country: 'Luxemburg',
+    region: 'Europa',
+    lat: 49.6116,
+    lng: 6.1319,
+    type: 'ordentlich',
+    cityHint: 'Luxemburg',
+  },
+  {
+    country: 'Niederlande',
+    region: 'Europa',
+    lat: 52.3676,
+    lng: 4.9041,
+    type: 'ordentlich',
+    cityHint: 'Utrecht / Regionen',
+  },
+  {
+    country: 'Österreich',
+    region: 'Europa',
+    lat: 48.2082,
+    lng: 16.3738,
+    type: 'ordentlich',
+    cityHint: 'Tirol / Wien',
+  },
+  {
+    country: 'Schweden',
+    region: 'Europa',
+    lat: 59.3293,
+    lng: 18.0686,
+    type: 'ordentlich',
+    cityHint: 'Stockholm',
+  },
+  {
+    country: 'Schweiz',
+    region: 'Europa',
+    lat: 46.948,
+    lng: 7.4474,
+    type: 'ordentlich',
+    cityHint: 'Bern / Regionen',
+  },
+  {
+    country: 'Slowakei',
+    region: 'Europa',
+    lat: 48.1486,
+    lng: 17.1077,
+    type: 'ordentlich',
+    cityHint: 'Bratislava',
+  },
+  {
+    country: 'Slowenien',
+    region: 'Europa',
+    lat: 46.0569,
+    lng: 14.5058,
+    type: 'ordentlich',
+    cityHint: 'Ljubljana',
+  },
+  {
+    country: 'Tschechische Republik',
+    region: 'Europa',
+    lat: 50.0755,
+    lng: 14.4378,
+    type: 'ordentlich',
+    cityHint: 'Prag',
+  },
+  {
+    country: 'Ungarn',
+    region: 'Europa',
+    lat: 47.4979,
+    lng: 19.0402,
+    type: 'ordentlich',
+    cityHint: 'Budapest',
+  },
+  {
+    country: 'USA',
+    region: 'Nordamerika',
+    lat: 39.8283,
+    lng: -98.5795,
+    type: 'ordentlich',
+    cityHint: 'Mehrere Bundesstaaten',
+  },
+];
+
+const mapRegions = ['Alle', ...new Set(memberSpots.map((spot) => spot.region))];
+const uniqueMemberCount = memberSpots.length;
+const worldCoverage = Math.round((uniqueMemberCount / 195) * 100);
+---
+
+<MainLayout
+  title="Mitglieder der HWZSV | Ordentliche und außerordentliche Mitglieder"
+  description="Übersicht der ordentlichen und außerordentlichen Mitglieder der Haflinger Welt-Zucht- und Sportvereinigung nach Ländern."
+  showNavbar={true}
+>
+  <PageHero
+    title="Mitglieder"
+    lead="Die HWZSV vereint Verbände und Organisationen aus vielen Ländern. Entdecken Sie interaktiv, wo unser Netzwerk aktiv ist - von Südtirol bis Übersee."
+    accent="Mitgliedsübersicht"
+    breadcrumbItems={[
+      { label: 'Startseite', href: '/' },
+      { label: 'Mitglieder' },
+    ]}
+  />
+
+  <section class="py-16 sm:py-20 bg-white border-t border-black/5">
+    <div class="site-container">
+      <div class="member-intro-grid mb-8 sm:mb-10" data-reveal="fade-up">
+        <article class="member-stat-card">
+          <p class="member-stat-label">Mitgliedsländer</p>
+          <p class="member-stat-value">{uniqueMemberCount}</p>
+          <p class="member-stat-meta">Ordentlich + außerordentlich</p>
+        </article>
+        <article class="member-stat-card">
+          <p class="member-stat-label">Regionen</p>
+          <p class="member-stat-value">{mapRegions.length - 1}</p>
+          <p class="member-stat-meta">Aktive internationale Cluster</p>
+        </article>
+        <article class="member-stat-card">
+          <p class="member-stat-label">Weltabdeckung</p>
+          <p class="member-stat-value">{worldCoverage}%</p>
+          <p class="member-stat-meta">auf Basis von 195 Staaten</p>
+        </article>
+      </div>
+
+      <div
+        class="member-experience"
+        data-member-map
+        data-map-api-key={googleMapsApiKey}
+      >
+        <script
+          type="application/json"
+          data-member-map-data
+          set:html={JSON.stringify(memberSpots)}
+        />
+
+        <div class="member-map-panel">
+          <div class="member-map-topbar">
+            <div class="member-search-wrap">
+              <label for="member-map-search" class="member-search-label"
+                >Land suchen</label
+              >
+              <input
+                id="member-map-search"
+                class="member-search-input"
+                type="search"
+                placeholder="z.B. Österreich, Kanada, USA"
+                data-map-search
+              />
+            </div>
+            <button type="button" class="member-discovery-btn" data-map-random>
+              Zufallsland entdecken
+            </button>
+          </div>
+
+          <div class="member-filter-row" role="group" aria-label="Regionen">
+            {
+              mapRegions.map((region) => (
+                <button
+                  type="button"
+                  class={`member-filter-chip ${region === 'Alle' ? 'is-active' : ''}`}
+                  data-map-region={region}
+                  aria-pressed={region === 'Alle' ? 'true' : 'false'}
+                >
+                  {region}
+                </button>
+              ))
+            }
+          </div>
+
+          <p class="member-filter-state" data-map-state>
+            {uniqueMemberCount} Länder sichtbar
+          </p>
+
+          <div class="member-progress-wrap">
+            <div class="member-progress-meta">
+              <p class="member-progress-label">Discovery-Fortschritt</p>
+              <p class="member-progress-value">
+                <span data-progress-value>0</span> / {uniqueMemberCount}
+              </p>
+            </div>
+            <div class="member-progress-track">
+              <div class="member-progress-fill" data-progress-fill></div>
+            </div>
+          </div>
+
+          <div class="member-map-canvas" data-map-canvas>
+            <div
+              class="member-google-map"
+              data-google-map
+              aria-label="Interaktive Mitgliederkarte"
+            >
+            </div>
+            <p class="member-map-overlay-hint">
+              Pins anklicken, um Details zu sehen.
+            </p>
+          </div>
+
+          <article class="member-detail" data-map-detail>
+            <p class="member-detail-label">Ausgewählt</p>
+            <h2 class="member-detail-country" data-detail-country>
+              Klicken Sie auf einen Pin
+            </h2>
+            <p class="member-detail-meta" data-detail-meta>
+              Hier sehen Sie Region und Mitgliedsstatus.
+            </p>
+          </article>
+        </div>
+
+        <aside class="member-list-panel">
+          <article
+            class="rounded-2xl border border-black/5 bg-gray-50 p-6 sm:p-8"
+          >
+            <p
+              class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3"
+            >
+              Ordentliche Mitglieder
+            </p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+              Länderübersicht
+            </h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Diese Mitglieder bilden das Rückgrat der internationalen
+              Verbandsarbeit und treiben Zucht- und Sportentwicklung aktiv
+              voran.
+            </p>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700">
+              {
+                ordentlicheMitglieder.map((land) => (
+                  <li class="rounded-lg bg-white border border-black/5 px-3 py-2">
+                    {land}
+                  </li>
+                ))
+              }
+            </ul>
+          </article>
+
+          <article
+            class="rounded-2xl border border-black/5 bg-gray-50 p-6 sm:p-8"
+          >
+            <p
+              class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3"
+            >
+              Außerordentliche Mitglieder
+            </p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+              Partnerstatus
+            </h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Außerordentliche Mitglieder stärken die Zusammenarbeit mit
+              zusätzlichen Perspektiven und fachlicher Vernetzung.
+            </p>
+            <ul class="space-y-2 text-gray-700">
+              {
+                ausserordentlicheMitglieder.map((land) => (
+                  <li class="rounded-lg bg-white border border-black/5 px-3 py-2">
+                    {land}
+                  </li>
+                ))
+              }
+            </ul>
+
+            <div class="mt-6 rounded-xl bg-white border border-black/5 p-4">
+              <p class="text-sm text-gray-600 leading-relaxed">
+                Hinweis: Vollständige Ansprechpartner und Kontaktdaten erhalten
+                Sie über die Geschäftsstelle.
+              </p>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    function initMemberMap() {
+      const root = document.querySelector('[data-member-map]');
+      if (!(root instanceof HTMLElement)) return;
+      if (root.dataset.initialized === 'true') return;
+      root.dataset.initialized = 'true';
+
+      try {
+        const dataNode = root.querySelector('[data-member-map-data]');
+        if (!(dataNode instanceof HTMLScriptElement)) return;
+
+        let spots = [];
+        try {
+          spots = JSON.parse(dataNode.textContent || '[]');
+        } catch (error) {
+          console.error(
+            '[HWZSV] Mitgliedskarte Daten konnten nicht gelesen werden.',
+            error,
+          );
+          return;
+        }
+
+        const searchInput = root.querySelector('[data-map-search]');
+        const regionButtons = Array.from(
+          root.querySelectorAll('[data-map-region]'),
+        );
+        const mapElement = root.querySelector('[data-google-map]');
+        const randomBtn = root.querySelector('[data-map-random]');
+        const detailCountry = root.querySelector('[data-detail-country]');
+        const detailMeta = root.querySelector('[data-detail-meta]');
+        const progressValue = root.querySelector('[data-progress-value]');
+        const progressFill = root.querySelector('[data-progress-fill]');
+        const mapState = root.querySelector('[data-map-state]');
+        const apiKey = root.dataset.mapApiKey || '';
+
+        if (
+          !(searchInput instanceof HTMLInputElement) ||
+          !(detailCountry instanceof HTMLElement) ||
+          !(detailMeta instanceof HTMLElement) ||
+          !(progressValue instanceof HTMLElement) ||
+          !(progressFill instanceof HTMLElement) ||
+          !(mapState instanceof HTMLElement) ||
+          !(randomBtn instanceof HTMLButtonElement) ||
+          !(mapElement instanceof HTMLElement)
+        ) {
+          return;
+        }
+
+        if (!apiKey) {
+          mapState.textContent =
+            'Google Maps API-Key fehlt. Bitte konfigurieren.';
+          setDefaultDetail('Die Live-Karte ist noch nicht konfiguriert.');
+          randomBtn.disabled = true;
+          return;
+        }
+
+        const state = {
+          query: '',
+          region: 'Alle',
+          discovered: new Set(),
+          activeCountry: '',
+        };
+
+        let map;
+        let markerEntries = [];
+
+        function normalize(value) {
+          return String(value || '').toLowerCase();
+        }
+
+        function typeLabel(value) {
+          if (value === 'ordentlich+außerordentlich')
+            return 'Ordentlich und außerordentlich';
+          if (value === 'außerordentlich') return 'Außerordentlich';
+          return 'Ordentlich';
+        }
+
+        function getVisibleSpots() {
+          const query = normalize(state.query);
+          return spots.filter((spot) => {
+            if (state.region !== 'Alle' && spot.region !== state.region)
+              return false;
+            if (!query) return true;
+            return normalize(
+              `${spot.country} ${spot.region} ${spot.cityHint}`,
+            ).includes(query);
+          });
+        }
+
+        function updateProgress() {
+          const total = spots.length;
+          const current = state.discovered.size;
+          const percentage = total > 0 ? (current / total) * 100 : 0;
+          progressValue.textContent = String(current);
+          progressFill.style.width = `${percentage}%`;
+        }
+
+        function setDetail(spot) {
+          detailCountry.textContent = spot.country;
+          detailMeta.textContent = `${spot.region} · ${typeLabel(spot.type)} · ${spot.cityHint}`;
+        }
+
+        function setDefaultDetail(message) {
+          detailCountry.textContent = 'Klicken Sie auf einen Pin';
+          detailMeta.textContent = message;
+        }
+
+        function getMarkerIcon(isActive, isDiscovered) {
+          const fillColor = isActive
+            ? '#86172c'
+            : isDiscovered
+              ? '#14532d'
+              : '#b42340';
+
+          return {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor,
+            fillOpacity: 1,
+            strokeColor: '#ffffff',
+            strokeWeight: 2,
+            scale: isActive ? 9 : 7,
+          };
+        }
+
+        function updateMarkerStyles(visibleCountries) {
+          markerEntries.forEach(({ spot, marker }) => {
+            const isVisible = visibleCountries.has(spot.country);
+            const isDiscovered = state.discovered.has(spot.country);
+            const isActive = state.activeCountry === spot.country;
+
+            marker.setVisible(isVisible);
+            marker.setIcon(getMarkerIcon(isActive, isDiscovered));
+          });
+        }
+
+        function syncMapViewport(visible) {
+          if (!map || visible.length === 0) return;
+
+          if (visible.length === 1) {
+            map.panTo({ lat: visible[0].lat, lng: visible[0].lng });
+            map.setZoom(4);
+            return;
+          }
+
+          const bounds = new google.maps.LatLngBounds();
+          visible.forEach((spot) => {
+            bounds.extend({ lat: spot.lat, lng: spot.lng });
+          });
+          map.fitBounds(bounds, 54);
+        }
+
+        function focusInitialMapView() {
+          if (!map) return;
+          const europeSpots = spots.filter((spot) => spot.region === 'Europa');
+          if (europeSpots.length > 1) {
+            const europeBounds = new google.maps.LatLngBounds();
+            europeSpots.forEach((spot) => {
+              europeBounds.extend({ lat: spot.lat, lng: spot.lng });
+            });
+            map.fitBounds(europeBounds, 52);
+            return;
+          }
+          syncMapViewport(spots);
+        }
+
+        function updatePins(options = { fit: false }) {
+          const visible = getVisibleSpots();
+          const visibleCountries = new Set(visible.map((spot) => spot.country));
+          updateMarkerStyles(visibleCountries);
+
+          mapState.textContent =
+            visible.length > 0
+              ? `${visible.length} Länder sichtbar`
+              : 'Keine Treffer für aktuellen Filter';
+          randomBtn.disabled = visible.length === 0;
+
+          if (visible.length === 0) {
+            state.activeCountry = '';
+            setDefaultDetail('Bitte Suche oder Filter anpassen.');
+          } else if (options.fit) {
+            syncMapViewport(visible);
+          }
+        }
+
+        function updateRegionButtons() {
+          regionButtons.forEach((btn) => {
+            if (!(btn instanceof HTMLButtonElement)) return;
+            const active = btn.dataset.mapRegion === state.region;
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-pressed', String(active));
+          });
+        }
+
+        function discoverSpot(spot) {
+          if (!spot) return;
+          state.discovered.add(spot.country);
+          state.activeCountry = spot.country;
+          setDetail(spot);
+          updateProgress();
+          updatePins();
+        }
+
+        function chooseRandomSpot() {
+          const visible = getVisibleSpots();
+          if (visible.length === 0) return;
+          const fresh = visible.filter(
+            (spot) => !state.discovered.has(spot.country),
+          );
+          const pool = fresh.length > 0 ? fresh : visible;
+          const randomIndex = Math.floor(Math.random() * pool.length);
+          const picked = pool[randomIndex];
+          discoverSpot(picked);
+
+          if (map) {
+            map.panTo({ lat: picked.lat, lng: picked.lng });
+            map.setZoom(Math.max(map.getZoom() || 2, 4));
+          }
+        }
+
+        root.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) return;
+          const regionBtn = target.closest('[data-map-region]');
+          if (regionBtn instanceof HTMLButtonElement) {
+            state.region = regionBtn.dataset.mapRegion || 'Alle';
+            updateRegionButtons();
+            updatePins({ fit: true });
+          }
+        });
+
+        searchInput.addEventListener('input', () => {
+          state.query = searchInput.value.trim();
+          updatePins({ fit: true });
+        });
+
+        randomBtn.addEventListener('click', chooseRandomSpot);
+
+        function setupGoogleMap() {
+          map = new google.maps.Map(mapElement, {
+            center: { lat: 50.8, lng: 10.4 },
+            zoom: 4,
+            minZoom: 2,
+            streetViewControl: false,
+            mapTypeControl: false,
+            fullscreenControl: false,
+            gestureHandling: 'cooperative',
+            styles: [
+              {
+                featureType: 'all',
+                elementType: 'labels.text.fill',
+                stylers: [{ color: '#334155' }],
+              },
+              {
+                featureType: 'administrative',
+                elementType: 'geometry.stroke',
+                stylers: [{ color: '#94a3b8' }],
+              },
+              {
+                featureType: 'landscape',
+                elementType: 'geometry',
+                stylers: [{ color: '#edf2f7' }],
+              },
+              {
+                featureType: 'water',
+                elementType: 'geometry',
+                stylers: [{ color: '#dbeafe' }],
+              },
+            ],
+          });
+
+          markerEntries = spots.map((spot) => {
+            const marker = new google.maps.Marker({
+              map,
+              position: { lat: spot.lat, lng: spot.lng },
+              title: spot.country,
+              icon: getMarkerIcon(false, false),
+            });
+            marker.addListener('click', () => discoverSpot(spot));
+            return { spot, marker };
+          });
+
+          updatePins({ fit: false });
+          focusInitialMapView();
+        }
+
+        loadGoogleMapsApi(apiKey)
+          .then(setupGoogleMap)
+          .catch((error) => {
+            randomBtn.disabled = true;
+            mapState.textContent = 'Google Maps konnte nicht geladen werden.';
+            setDefaultDetail(
+              'Bitte API-Restriktionen und Domain-Freigaben pruefen.',
+            );
+            console.error('[HWZSV] Google Maps Fehler.', error);
+          });
+
+        updateRegionButtons();
+        updateProgress();
+        setDefaultDetail('Hier sehen Sie Region und Mitgliedsstatus.');
+      } catch (error) {
+        root.dataset.initialized = 'false';
+        console.error(
+          '[HWZSV] Mitgliedskarte konnte nicht initialisiert werden.',
+          error,
+        );
+      }
+    }
+
+    let mapsApiPromise;
+    function loadGoogleMapsApi(apiKey) {
+      if (window.google && window.google.maps) {
+        return Promise.resolve(window.google.maps);
+      }
+      if (mapsApiPromise) return mapsApiPromise;
+
+      mapsApiPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly`;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+          if (window.google && window.google.maps) {
+            resolve(window.google.maps);
+          } else {
+            reject(new Error('Google Maps API nicht verfuegbar.'));
+          }
+        };
+        script.onerror = () =>
+          reject(new Error('Google Maps Script konnte nicht geladen werden.'));
+        document.head.appendChild(script);
+      });
+
+      return mapsApiPromise;
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMemberMap, {
+        once: true,
+      });
+    } else {
+      initMemberMap();
+    }
+    document.addEventListener('astro:page-load', initMemberMap);
+    document.addEventListener('astro:after-swap', initMemberMap);
+  </script>
+
+  <style>
+    .member-intro-grid {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .member-intro-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .member-stat-card {
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      background: #fafafa;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .member-stat-label {
+      margin: 0;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #71717a;
+    }
+
+    .member-stat-value {
+      margin: 6px 0;
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #18181b;
+      font-weight: 800;
+    }
+
+    .member-stat-meta {
+      margin: 0;
+      color: #52525b;
+      font-size: 0.9rem;
+    }
+
+    .member-experience {
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (min-width: 1100px) {
+      .member-experience {
+        grid-template-columns: 1.35fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .member-map-panel,
+    .member-list-panel {
+      display: grid;
+      gap: 16px;
+    }
+
+    .member-map-panel {
+      border-radius: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: linear-gradient(to bottom, #fafafa 0%, #ffffff 48%);
+      padding: 14px;
+    }
+
+    @media (min-width: 768px) {
+      .member-map-panel {
+        padding: 18px;
+      }
+    }
+
+    .member-map-topbar {
+      display: grid;
+      gap: 10px;
+    }
+
+    @media (min-width: 768px) {
+      .member-map-topbar {
+        grid-template-columns: 1fr auto;
+        align-items: end;
+      }
+    }
+
+    .member-search-wrap {
+      display: grid;
+      gap: 6px;
+    }
+
+    .member-search-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #71717a;
+    }
+
+    .member-search-input {
+      min-height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      padding: 0 12px;
+      font-size: 0.95rem;
+      color: #18181b;
+      background: white;
+      outline: none;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .member-search-input:focus {
+      border-color: rgba(134, 23, 44, 0.38);
+      box-shadow: 0 0 0 3px rgba(134, 23, 44, 0.12);
+    }
+
+    .member-discovery-btn {
+      min-height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(134, 23, 44, 0.24);
+      background: rgba(134, 23, 44, 0.1);
+      color: #86172c;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      padding: 0 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .member-discovery-btn:hover {
+      background: #86172c;
+      border-color: #86172c;
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .member-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .member-filter-chip {
+      min-height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 0 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #3f3f46;
+      background: white;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .member-filter-chip.is-active {
+      background: rgba(134, 23, 44, 0.1);
+      color: #86172c;
+      border-color: rgba(134, 23, 44, 0.32);
+    }
+
+    .member-filter-state {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #52525b;
+    }
+
+    .member-progress-wrap {
+      display: grid;
+      gap: 6px;
+    }
+
+    .member-progress-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .member-progress-label,
+    .member-progress-value {
+      margin: 0;
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: #52525b;
+    }
+
+    .member-progress-track {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .member-progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #86172c 0%, #b42340 100%);
+      border-radius: inherit;
+      transition: width 0.3s ease;
+    }
+
+    .member-map-canvas {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      min-height: 380px;
+      background:
+        radial-gradient(
+          circle at 22% 18%,
+          rgba(134, 23, 44, 0.16),
+          transparent 42%
+        ),
+        radial-gradient(
+          circle at 78% 72%,
+          rgba(24, 24, 27, 0.14),
+          transparent 34%
+        ),
+        linear-gradient(180deg, #dde8f1 0%, #edf3f8 48%, #f7fafc 100%);
+      border: 1px solid rgba(24, 24, 27, 0.14);
+      isolation: isolate;
+    }
+
+    .member-map-canvas::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.32),
+        inset 0 -20px 40px rgba(15, 23, 42, 0.08);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .member-google-map {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .member-map-overlay-hint {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      margin: 0;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #334155;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    @media (max-width: 520px) {
+      .member-map-canvas {
+        min-height: 300px;
+      }
+    }
+
+    .member-discovery-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+      background: rgba(0, 0, 0, 0.06);
+      border-color: rgba(0, 0, 0, 0.12);
+      color: #71717a;
+    }
+
+    .member-detail {
+      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: white;
+      padding: 12px;
+    }
+
+    .member-detail-label {
+      margin: 0 0 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #71717a;
+      font-weight: 700;
+    }
+
+    .member-detail-country {
+      margin: 0 0 4px;
+      color: #18181b;
+      font-size: 1.25rem;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .member-detail-meta {
+      margin: 0;
+      color: #52525b;
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+  </style>
+
+  <SectionCrossLinks excludePath="/mitglieder" />
+
+  <CtaBanner
+    title="Mitglied werden oder Kontakt aufnehmen?"
+    text="Wir informieren Sie gerne über Aufnahmeverfahren, Ansprechpartner und die Zusammenarbeit im Netzwerk."
+    buttonLabel="Zur Geschäftsstelle"
+  />
+</MainLayout>

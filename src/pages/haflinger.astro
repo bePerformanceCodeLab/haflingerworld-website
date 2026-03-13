@@ -4,21 +4,145 @@ import PageHero from '@/components/PageHero.astro';
 import SectionHaflinger from '@/components/sections/SectionHaflinger.astro';
 import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
 import CtaBanner from '@/components/CtaBanner.astro';
+
+const faqItems = [
+  {
+    question: 'Wie viel kostet im Durchschnitt ein Haflinger?',
+    answer:
+      'Der Preis variiert stark nach Alter, Ausbildung, Abstammung und Gesundheitsstatus. Für solide Freizeitpferde liegt der Markt oft im mittleren vierstelligen bis niedrigen fünfstelligen Bereich. Für geprüfte Zucht- oder Sportpferde kann der Preis deutlich höher sein. Wer Haflinger kaufen möchte, sollte immer eine vollständige Dokumentation einsehen.',
+  },
+  {
+    question: 'Wie teuer ist ein Haflinger?',
+    answer:
+      'Ein Haflinger kann von wenigen tausend Euro bis in den höheren fünfstelligen Bereich kosten. Entscheidend sind Ausbildungsstand, Rittigkeit, Turnierergebnisse und die Qualität der Zuchtlinie. Beim Thema Haflinger Fohlen kaufen ist zusätzlich die Aufzuchtqualität besonders wichtig.',
+  },
+  {
+    question: 'Wie viel kostet ein Pferd im Durchschnitt?',
+    answer:
+      'Neben dem Kaufpreis müssen laufende Kosten berücksichtigt werden: Stall, Futter, Hufschmied, Tierarzt, Ausrüstung und Training. Der Kaufpreis ist nur ein Teil der Gesamtkosten über die Jahre.',
+  },
+  {
+    question: 'Kann ein Haflinger 90 kg tragen?',
+    answer:
+      'Viele Haflinger können 90 kg problemlos tragen, wenn Exterieur, Trainingszustand und Sattelpassform stimmen. Die individuelle Belastbarkeit sollte immer pferdegerecht und fachlich beurteilt werden.',
+  },
+  {
+    question: 'Was ist das teuerste Pferd?',
+    answer:
+      'Internationale Spitzenpferde im Renn- und Spitzensport erreichen die höchsten Preise. Für die Praxis entscheidend ist jedoch, dass Pferd und Reiter fachlich und charakterlich zusammenpassen.',
+  },
+  {
+    question: 'Sind Haflinger Kaltblüter oder Warmblüter?',
+    answer:
+      'Der Haflinger wird als robustes, mittelrahmiges Warmblut mit ursprünglicher Gebirgspferdeprägung eingeordnet. Er kombiniert Trittsicherheit, Leistungsbereitschaft und ein ausgeglichenes Temperament.',
+  },
+  {
+    question: 'Welche Pferderassen sind Kaltblüter?',
+    answer:
+      'Typische Kaltblüter sind zum Beispiel Noriker, Percheron, Clydesdale oder Shire Horse. Sie sind meist großrahmiger und schwerer gebaut als der Haflinger.',
+  },
+  {
+    question: 'Was sind Kaltblüter bei Pferden?',
+    answer:
+      'Kaltblüter sind kräftige, ruhige Pferdetypen mit hoher Zugkraft und meist massigem Körperbau. Die Einteilung beschreibt den Typ, nicht die Körpertemperatur.',
+  },
+  {
+    question: 'Wo haben Haflinger ihren Ursprung?',
+    answer:
+      'Der Ursprung der Rasse liegt in Südtirol, insbesondere im Raum Schluderns. Von dort aus verbreitete sich die Haflingerzucht in viele Länder Europas und später weltweit.',
+  },
+  {
+    question: 'Wo sind die Haflinger heimisch?',
+    answer:
+      'Historisch ist der Haflinger in Südtirol und Tirol beheimatet. Heute ist das Haflinger Pferd in zahlreichen Ländern als Freizeit-, Zucht- und Sportpferd etabliert.',
+  },
+  {
+    question: 'Welche Pferde kommen aus Südtirol?',
+    answer:
+      'Die bekannteste international verbreitete Rasse mit Ursprung in Südtirol ist der Haflinger. Die Region gilt als zentraler Bezugspunkt für Geschichte und Zuchtentwicklung.',
+  },
+  {
+    question: 'Wie hieß der erste Haflinger?',
+    answer:
+      'Als Stammvater der Rasse gilt der Hengst 249 Folie, geboren 1874. Seine Linie prägt die Entwicklung des modernen Haflingers bis heute.',
+  },
+  {
+    question: 'Aus welchen zwei Rassen entstand ein Haflinger?',
+    answer:
+      'Die frühe Entwicklung basiert auf der Anpaarung eines orientalisch geprägten Hengstes mit regionalen Landstuten. Daraus entstand die heute klar definierte Haflingerrasse.',
+  },
+  {
+    question: 'Wie alt ist der älteste Haflinger der Welt?',
+    answer:
+      'Ein offizieller, weltweit einheitlich geführter Rekord ist schwer zu bestätigen. Einzelne Haflinger erreichen bei guter Haltung, Fütterung und tierärztlicher Betreuung ein sehr hohes Alter.',
+  },
+];
 ---
 
-<MainLayout title="Haflinger – HWZSV" description="Geschichte, Eigenschaften und Verwendung des Haflingers. Informationen der HWZSV." showNavbar={true}>
+<MainLayout
+  title="Haflinger Pferd: Ursprung, Größe, Sport | HWZSV"
+  description="Das Haflinger Pferd im Porträt: Haflinger Ursprung in Südtirol, typische Haflinger Größe, Einsatz im Sport sowie Infos zu Kauf, Haltung und Zucht."
+  showNavbar={true}
+>
   <PageHero
     title="Der Haflinger"
-    lead="Geschichte, Eigenschaften und Verwendung – alles Wissenswerte über eine der vielseitigsten Pferderassen der Welt."
+    lead="Vom Ursprung in Schluderns/Südtirol bis zum modernen Sportpferd: alles zu Geschichte, Eigenschaften, Haflinger Größe und Verwendung."
     accent="Haflinger"
-    breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'Haflinger' }]}
+    breadcrumbItems={[
+      { label: 'Startseite', href: '/' },
+      { label: 'Haflinger' },
+    ]}
   />
 
   <SectionHaflinger showCta={false} />
+
+  <section
+    id="haflinger-faq"
+    class="py-20 sm:py-24 border-t border-black/5 bg-gray-50"
+  >
+    <div class="site-container">
+      <header class="mb-10 sm:mb-12">
+        <p
+          class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3"
+        >
+          FAQ
+        </p>
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-5 text-balance"
+        >
+          Häufige Fragen zum Haflinger
+        </h2>
+        <p class="text-lg text-gray-600 leading-relaxed max-w-3xl">
+          Kompakte Antworten zu Preis, Ursprung, Typ, Tragfähigkeit und
+          Zuchtpraxis. Für individuelle Fälle empfehlen wir immer die Beratung
+          durch Fachleute und den zuständigen Verband.
+        </p>
+      </header>
+
+      <div class="space-y-3 sm:space-y-4">
+        {
+          faqItems.map((item) => (
+            <details class="bg-white rounded-xl border border-black/5 p-5 sm:p-6 group">
+              <summary class="cursor-pointer list-none flex items-start justify-between gap-4">
+                <span class="text-base sm:text-lg font-semibold text-gray-900">
+                  {item.question}
+                </span>
+                <span class="mt-1 text-accent group-open:rotate-45 transition-transform">
+                  +
+                </span>
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed">{item.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <SectionCrossLinks excludePath="/haflinger" />
 
   <CtaBanner
     title="Mehr über den Haflinger erfahren?"
-    text="Kontaktieren Sie uns für Informationen zu Zucht, Erwerb und internationalen Standards."
+    text="Kontaktieren Sie uns für Informationen zu Zucht, Haltung, Erwerb und internationalen Standards."
   />
 </MainLayout>

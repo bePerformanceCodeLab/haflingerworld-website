@@ -3,9 +3,15 @@ import MainLayout from '@/layouts/MainLayout.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
 ---
 
-<MainLayout title="Impressum – HWZSV" description="Impressum und rechtliche Angaben der Haflinger Welt-Zucht- und Sportvereinigung (HWZSV)." showNavbar={true}>
+<MainLayout
+  title="Impressum – HWZSV"
+  description="Impressum und rechtliche Angaben der Haflinger Welt-Zucht- und Sportvereinigung (HWZSV)."
+  showNavbar={true}
+>
   <div class="max-w-2xl mx-auto px-5 sm:px-6 py-10 sm:py-16 md:py-20">
-    <Breadcrumb items={[{ label: 'Startseite', href: '/' }, { label: 'Impressum' }]} />
+    <Breadcrumb
+      items={[{ label: 'Startseite', href: '/' }, { label: 'Impressum' }]}
+    />
 
     <h1
       class="text-2xl sm:text-3xl font-semibold text-gray-900 tracking-tight mb-6 sm:mb-8"
@@ -72,6 +78,38 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
         <div class="text-sm text-gray-600 space-y-0.5 leading-relaxed">
           <p>MwSt.-Nr.: <span class="text-gray-900">IT94120830214</span></p>
           <p>Rechtsform: Internationale Vereinigung</p>
+        </div>
+      </section>
+
+      <div class="h-px bg-gray-100"></div>
+
+      <section>
+        <h2
+          class="text-[11px] sm:text-xs font-medium text-gray-400 uppercase tracking-wider mb-2 sm:mb-3"
+        >
+          Website-Konzept & Umsetzung
+        </h2>
+        <div class="text-sm text-gray-600 space-y-0.5 leading-relaxed">
+          <p class="font-medium text-gray-900">be.</p>
+          <p>Unterstadt, 18</p>
+          <p>39043 Klausen (BZ)</p>
+          <p>South Tyrol, Italy</p>
+          <p>
+            E-Mail: <a
+              href="mailto:info@be-performance.com"
+              class="text-gray-900 hover:text-accent active:text-accent/80 transition-colors"
+              >info@be-performance.com</a
+            >
+          </p>
+          <p>
+            Website: <a
+              href="https://www.be-performance.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-900 hover:text-accent active:text-accent/80 transition-colors"
+              >www.be-performance.com</a
+            >
+          </p>
         </div>
       </section>
     </div>

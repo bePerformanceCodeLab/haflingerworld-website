@@ -12,96 +12,270 @@ interface Props {
 const { showCta = true } = Astro.props;
 const sectionId = 'hwzsv';
 const subpages = [
-  { id: 'intro', title: 'Intro', lead: 'Aufgaben, Ziele und Geschichte der HWZSV.', placeholder: 'Inhalte zu diesem Bereich können hier ergänzt werden – Texte, PDFs und Kontakte.', image: hwzsvIntro },
-  { id: 'satzungen', title: 'Satzungen', lead: 'Grundlagen, Statuten und Beschlüsse.', placeholder: 'Inhalte zu diesem Bereich können hier ergänzt werden – Texte, PDFs und Kontakte.', image: hwzsvSatzungen },
-  { id: 'zustaendigkeiten', title: 'Zuständigkeiten', lead: 'Wer wofür verantwortlich ist.', placeholder: 'Inhalte zu diesem Bereich können hier ergänzt werden – Texte, PDFs und Kontakte.', image: hwzsvZustaendigkeiten },
-  { id: 'gremien', title: 'Gremien', lead: 'Präsidium, Vorstand und Delegierte.', placeholder: 'Inhalte zu diesem Bereich können hier ergänzt werden – Texte, PDFs und Kontakte.', image: hwzsvGremien },
+  {
+    id: 'intro',
+    title: 'Überblick',
+    lead: 'Aufgaben, Ziele und Geschichte der HWZSV.',
+    placeholder:
+      'Die HWZSV ist die internationale Haflinger Organisation, die Zucht und Sport unter einem Dach verbindet. Als Haflinger Weltverband koordiniert sie gemeinsame Standards und vertritt die Interessen der Mitgliedsorganisationen.',
+    image: hwzsvIntro,
+  },
+  {
+    id: 'satzungen',
+    title: 'Satzungen',
+    lead: 'Grundlagen, Statuten und Beschlüsse.',
+    placeholder:
+      'Die Satzungen des Südtiroler Haflinger Pferdezuchtverbandes regeln die genossenschaftliche Arbeit verbindlich: gegründet am 10.04.1953 in Bozen, mit Laufzeit bis 31.12.2060. Festgelegt sind unter anderem Zweck, Gegenstand, Mitgliederrechte, Organe, Bilanzgrundsätze und die Gewinnverwendung im Sinne der genossenschaftlichen Förderung.',
+    image: hwzsvSatzungen,
+  },
+  {
+    id: 'zustaendigkeiten',
+    title: 'Zuständigkeiten',
+    lead: 'Wer wofür verantwortlich ist.',
+    placeholder:
+      'Klare Zuständigkeiten sorgen für kurze Entscheidungswege. Präsidium, Vorstand, Fachkommissionen und Sekretariat arbeiten abgestimmt zusammen - von Zuchtfragen bis zur internationalen Veranstaltungskoordination.',
+    image: hwzsvZustaendigkeiten,
+  },
+  {
+    id: 'gremien',
+    title: 'Gremien',
+    lead: 'Präsidium, Vorstand und Delegierte.',
+    placeholder:
+      'Die Gremien der HWZSV bilden die Vielfalt der internationalen Haflingerwelt ab. Delegierte aus den Mitgliedsländern bringen Praxis, Zuchtkompetenz und sportliche Perspektiven in die Entscheidungen ein.',
+    image: hwzsvGremien,
+  },
 ];
 
 const milestones = [
-  { year: '1976', text: 'Gründung der Haflinger Welt-Zucht- und Sportvereinigung' },
-  { year: '1990', text: 'Erste internationale Zuchtrichtlinien verabschiedet' },
-  { year: '2005', text: 'Erweiterung auf über 20 Mitgliedsorganisationen' },
-  { year: '2020', text: 'Digitalisierung der Zuchtdatenbanken' },
-  { year: '2026', text: 'Strategische Neuausrichtung und Modernisierung' },
+  {
+    year: '1953',
+    text: 'Gründung des Südtiroler Haflinger Pferdezuchtverbandes in Bozen',
+  },
+  {
+    year: '2013',
+    text: 'Gründung der HWZSV als internationale Dachorganisation',
+  },
+  {
+    year: '2016',
+    text: 'Ausbau der länderübergreifenden Facharbeit und Kongressformate',
+  },
+  {
+    year: '2021',
+    text: 'Stärkung der internationalen Abstimmung durch hybride Gremienarbeit',
+  },
+  {
+    year: '2024',
+    text: 'Weltkongress und internationale Großveranstaltungen mit hoher Beteiligung',
+  },
+  {
+    year: '2026',
+    text: 'Fokus auf Datenqualität, Vergleichbarkeit und moderne Verbandskommunikation',
+  },
+];
+
+const statutesFacts = [
+  {
+    title: 'Rechtsform und Sitz',
+    text: 'Genossenschaft mit Rechtssitz in Bozen; Zweigstellen können per Verwaltungsratsbeschluss eingerichtet werden.',
+  },
+  {
+    title: 'Dauer',
+    text: 'Laut Statut ist die Dauer bis 31. Dezember 2060 festgelegt; eine Verlängerung ist per außerordentlicher Vollversammlung möglich.',
+  },
+  {
+    title: 'Zweck',
+    text: 'Förderung der Mitglieder in Pferdezucht und Pferdehaltung ohne Privatspekulation sowie Beratung, Betreuung und Interessenvertretung.',
+  },
+  {
+    title: 'Kernaufgaben',
+    text: 'Erhaltung und Qualitätsentwicklung des originalen Haflingers, Führung des Stammbuchs, Zuchtprogramme, Veranstaltungen, Vermarktung und Sportförderung.',
+  },
+  {
+    title: 'Mitgliederstruktur',
+    text: 'Ordentliche Mitglieder, unterstützende Mitglieder und Ehrenmitglieder; Aufnahme, Austritt und Ausschluss sind klar geregelt.',
+  },
+  {
+    title: 'Organe und Kontrolle',
+    text: 'Vollversammlung, Verwaltungsrat und gegebenenfalls Aufsichtsrat bilden die Governance-Struktur des Verbandes.',
+  },
+  {
+    title: 'Bilanz und Rücklagen',
+    text: 'Mindestens 30% des Jahresgewinns fließen in die gesetzliche unaufteilbare Rücklage; weitere Vorgaben folgen dem Genossenschaftsrecht.',
+  },
+  {
+    title: 'Letzte Statutenfassung',
+    text: 'Die derzeit gültige Fassung wurde laut Nachsatz in der außerordentlichen Vollversammlung am 19. Juni 2020 genehmigt.',
+  },
 ];
 ---
 
-<section id={sectionId} class="py-20 sm:py-24 bg-gray-50 border-t border-black/5 overflow-hidden">
+<section
+  id={sectionId}
+  class="py-20 sm:py-24 bg-gray-50 border-t border-black/5 overflow-hidden"
+>
   <div class="site-container">
-    
     <!-- Section Header -->
     <header class="mb-12 sm:mb-16" data-reveal="fade-up">
-      <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3">
+      <p
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3"
+      >
         HWZSV
       </p>
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-5 text-balance">
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-5 text-balance"
+      >
         Strukturen, die Vertrauen schaffen
       </h2>
       <p class="text-lg text-gray-600 leading-relaxed max-w-2xl">
-        Die Haflinger Welt-Zucht- und Sportvereinigung koordiniert internationale Standards, unterstützt Mitgliedsorganisationen und bündelt die Interessen der Rasse.
+        Die Haflinger Welt-Zucht- und Sportvereinigung koordiniert als
+        internationaler Haflinger Pferdezuchtverband Standards, unterstützt
+        Mitgliedsorganisationen und bündelt die Interessen der Rasse.
       </p>
     </header>
 
     <!-- Header Image -->
     <div class="mb-16 sm:mb-20 rounded-2xl overflow-hidden" data-reveal="scale">
-      <Image src={hwzsvHeader} alt="HWZSV – Strukturen, die Vertrauen schaffen" class="w-full h-auto object-cover aspect-[21/9]" width={1280} height={548} />
+      <Image
+        src={hwzsvHeader}
+        alt="HWZSV – Strukturen, die Vertrauen schaffen"
+        class="w-full h-auto object-cover aspect-[21/9]"
+        width={1280}
+        height={548}
+      />
     </div>
 
     <!-- Timeline -->
     <div class="mb-16 sm:mb-20" data-reveal="fade-up">
-      <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-8">
+      <p
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-8"
+      >
         Meilensteine
       </p>
-      <div class="relative pl-8 sm:pl-10 border-l-2 border-accent/20 space-y-8" data-reveal-stagger="80">
-        {milestones.map((m) => (
-          <div class="relative" data-reveal="fade-left">
-            <div class="timeline-dot absolute -left-[25px] sm:-left-[29px] top-1"></div>
-            <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent">{m.year}</span>
-            <p class="text-base text-gray-700 font-medium mt-1 leading-relaxed">{m.text}</p>
-          </div>
-        ))}
+      <div
+        class="relative pl-8 sm:pl-10 border-l-2 border-accent/20 space-y-8"
+        data-reveal-stagger="80"
+      >
+        {
+          milestones.map((m) => (
+            <div class="relative" data-reveal="fade-left">
+              <div class="timeline-dot absolute -left-[25px] sm:-left-[29px] top-1" />
+              <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent">
+                {m.year}
+              </span>
+              <p class="text-base text-gray-700 font-medium mt-1 leading-relaxed">
+                {m.text}
+              </p>
+            </div>
+          ))
+        }
       </div>
     </div>
+
+    <!-- Statutes Facts -->
+    <section class="mb-16 sm:mb-20" data-reveal="fade-up">
+      <p
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-6"
+      >
+        Satzung in Kürze
+      </p>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+        data-reveal-stagger="70"
+      >
+        {
+          statutesFacts.map((fact) => (
+            <article
+              class="rounded-2xl border border-black/5 bg-white p-5 sm:p-6"
+              data-reveal="fade-up"
+            >
+              <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-2">
+                {fact.title}
+              </h3>
+              <p class="text-sm sm:text-base text-gray-700 leading-relaxed">
+                {fact.text}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="text-xs text-gray-500 mt-4">
+        Hinweis: Diese Übersicht dient der Orientierung und ersetzt nicht den
+        vollständigen Satzungstext.
+      </p>
+    </section>
 
     <!-- Content Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-reveal-stagger="100">
-      {subpages.map((item, index) => (
-        <article id={`${sectionId}-${item.id}`} class="scroll-mt-28" data-reveal="fade-up">
-          <div class="hwzsv-card group h-full">
-            <div class="hwzsv-card-img mb-4 rounded-xl overflow-hidden aspect-video">
-              <Image src={item.image} alt={item.title} class="w-full h-full object-cover" width={800} height={450} />
-            </div>
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-4"
+      data-reveal-stagger="100"
+    >
+      {
+        subpages.map((item, index) => (
+          <article
+            id={`${sectionId}-${item.id}`}
+            class="scroll-mt-28"
+            data-reveal="fade-up"
+          >
+            <div class="hwzsv-card group h-full">
+              <div class="hwzsv-card-img mb-4 rounded-xl overflow-hidden aspect-video">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  class="w-full h-full object-cover"
+                  width={800}
+                  height={450}
+                />
+              </div>
 
-            <div class="mb-4">
-              <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 leading-tight">
-                {item.title}
-              </h3>
-            </div>
+              <div class="mb-4">
+                <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 leading-tight">
+                  {item.title}
+                </h3>
+              </div>
 
-            <div class="flex-1">
-              <p class="text-base text-gray-900 font-medium leading-relaxed mb-3">{item.lead}</p>
-              <p class="placeholder-text">{item.placeholder}</p>
+              <div class="flex-1">
+                <p class="text-base text-gray-900 font-medium leading-relaxed mb-3">
+                  {item.lead}
+                </p>
+                <p class="placeholder-text">{item.placeholder}</p>
+              </div>
             </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))
+      }
     </div>
 
-    {showCta && (
-      <div class="mt-16 sm:mt-20 pt-8 border-t border-black/5" data-reveal="fade-up">
-        <a href="/hwzsv" class="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group btn-glow">
-          Zur HWZSV-Seite
-          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
-    )}
-
+    {
+      showCta && (
+        <div
+          class="mt-16 sm:mt-20 pt-8 border-t border-black/5"
+          data-reveal="fade-up"
+        >
+          <a
+            href="/hwzsv"
+            class="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group btn-glow"
+          >
+            Zur HWZSV-Seite
+            <svg
+              class="w-4 h-4 transition-transform group-hover:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -118,7 +292,9 @@ const milestones = [
   }
 
   @media (min-width: 640px) {
-    .hwzsv-card { padding: 28px; }
+    .hwzsv-card {
+      padding: 28px;
+    }
   }
 
   .hwzsv-card:hover {
@@ -128,6 +304,8 @@ const milestones = [
   }
 
   @media (max-width: 767px) {
-    .hwzsv-card { min-height: 200px; }
+    .hwzsv-card {
+      min-height: 200px;
+    }
   }
 </style>

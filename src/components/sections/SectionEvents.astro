@@ -7,217 +7,310 @@ interface Props {
   compactHeader?: boolean;
   showCta?: boolean;
 }
-const { noTopBorder = false, compactHeader = false, showCta = true } = Astro.props;
+const {
+  noTopBorder = false,
+  compactHeader = false,
+  showCta = true,
+} = Astro.props;
 const sectionId = 'events';
 
 const internationalEvents = [
-  { 
-    day: '12', month: 'APRIL', year: '2026',
-    title: 'Internationales Haflinger Forum', 
-    location: 'Bozen, Italien', 
-    description: 'Strategiemeeting und Fachvorträge',
-    link: '#'
+  {
+    dateLabel: 'In Vorbereitung (2026)',
+    title: 'Haflinger Weltausstellung',
+    location: 'International',
+    description:
+      'Die Weltausstellung gilt als größte rassenspezifische Haflinger-Schau und findet im Fünfjahresturnus statt. Nach der Ausgabe 2025 läuft die Vorbereitung der nächsten Austragung.',
+    highlight: true,
+    link: '/events',
   },
-  { 
-    day: '06', month: 'JUNI', year: '2026',
-    title: 'Europacup Qualifikation', 
-    location: 'Ebbs, Tirol', 
-    description: 'Sportliche Sichtungen & Prüfungen',
-    link: '#'
+  {
+    dateLabel: 'Termin folgt (2026)',
+    title: 'Haflinger Weltkongress',
+    location: 'Bozen / International',
+    description:
+      'Internationales Forum für Zucht, Sport, Forschung und strategische Entwicklung der Rasse.',
+    highlight: true,
+    link: '/events',
   },
-  { 
-    day: '21', month: 'AUGUST', year: '2026',
-    title: 'Sommermeeting der Mitgliedsorganisationen', 
-    location: 'Meran, Italien', 
-    description: 'Austausch und Netzwerkpflege',
-    link: '#'
+  {
+    dateLabel: '31.01.2026',
+    title: 'Gesamtitalienische Haflinger-Hengstkörung und Hengstparade',
+    location: 'Neumarkt, Südtirol',
+    description:
+      'Körung, Präsentation und züchterische Standortbestimmung im Verbandsumfeld.',
+    link: '/events',
+  },
+  {
+    dateLabel: '08.02.2026',
+    title: 'Landesmeisterschaft Schlittenrennen und Skijöring',
+    location: 'Jenesien, Südtirol',
+    description:
+      'Traditionssport mit starkem Bezug zur regionalen Haflinger-Kultur.',
+    link: '/events',
+  },
+  {
+    dateLabel: '24.-26.04.2026',
+    title: 'Stammbucheintragung dreijähriger Stuten',
+    location: 'Neumarkt, Südtirol',
+    description:
+      'Wichtiger Zuchttermin für Dokumentation, Selektion und Vergleichbarkeit.',
+    link: '/events',
+  },
+  {
+    dateLabel: '17.05.2026',
+    title: 'Internationale Jungstutenschau',
+    location: 'Lana, Südtirol',
+    description:
+      'Schau und Austauschplattform für Züchterinnen und Züchter im internationalen Kontext.',
+    link: '/events',
+  },
+  {
+    dateLabel: 'Im Turnus',
+    title: 'Haflinger Europachampionat',
+    location: 'Wechselnde Austragungsorte',
+    description:
+      'Mehrdisziplinärer Leistungsvergleich in Dressur, Springen, Fahren und Vielseitigkeit.',
+    link: '/events',
   },
 ];
-
-const nextEvent = internationalEvents[0];
+const highlightEvents = internationalEvents.filter((event) => event.highlight);
+const regularEvents = internationalEvents.filter((event) => !event.highlight);
 ---
 
-<section id={sectionId} class={`py-20 sm:py-24 bg-gray-50 ${noTopBorder ? '' : 'border-t border-black/5'}`}>
+<section
+  id={sectionId}
+  class={`py-20 sm:py-24 bg-gray-50 ${noTopBorder ? '' : 'border-t border-black/5'}`}
+>
   <div class="site-container">
-    
     <!-- Section Header -->
-    <header class={compactHeader ? 'mb-10 sm:mb-12' : 'mb-12 sm:mb-16'} data-reveal="fade-up">
-      <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3">
+    <header
+      class={compactHeader ? 'mb-10 sm:mb-12' : 'mb-12 sm:mb-16'}
+      data-reveal="fade-up"
+    >
+      <p
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-3"
+      >
         Events & Kalender
       </p>
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-5 text-balance">
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-5 text-balance"
+      >
         Kommende Termine
       </h2>
       <p class="text-lg text-gray-600 leading-relaxed max-w-2xl">
-        Internationale Termine und Veranstaltungskalender – schnell auffindbar.
+        Internationale Termine von Hengstkörung bis Weltkongress - aktuell,
+        übersichtlich und auf die Haflinger-Community ausgerichtet.
+      </p>
+      <p class="text-sm text-gray-500 mt-3 max-w-3xl">
+        Schwerpunkt 2026: Weltausstellung und Weltkongress als zentrale
+        internationalen Bezugspunkte, ergänzt um ausgewählte Termine aus dem
+        Verbandsumfeld Südtirol.
       </p>
     </header>
 
-    {!compactHeader && (
-      <div class="mb-16 sm:mb-20 rounded-2xl overflow-hidden" data-reveal="scale">
-        <Image src={eventsHeader} alt="Events & Kalender – Kommende Termine" class="w-full h-auto object-cover aspect-[21/9]" width={1280} height={548} />
-      </div>
-    )}
-
-    <!-- Next Event Countdown -->
-    <div class="mb-12 sm:mb-16" data-reveal="fade-up">
-      <div class="countdown-banner">
-        <p class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent/80 mb-2">Nächster Termin</p>
-        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{nextEvent.title}</h3>
-        <p class="text-sm text-gray-500 mb-4">{nextEvent.day}. {nextEvent.month.charAt(0) + nextEvent.month.slice(1).toLowerCase()} {nextEvent.year} · {nextEvent.location}</p>
-        <div class="countdown-grid" id="event-countdown">
-          <div class="countdown-item">
-            <span class="countdown-number" data-countdown-days>--</span>
-            <span class="countdown-label">Tage</span>
-          </div>
-          <div class="countdown-item">
-            <span class="countdown-number" data-countdown-hours>--</span>
-            <span class="countdown-label">Stunden</span>
-          </div>
-          <div class="countdown-item">
-            <span class="countdown-number" data-countdown-minutes>--</span>
-            <span class="countdown-label">Minuten</span>
-          </div>
+    {
+      !compactHeader && (
+        <div
+          class="mb-16 sm:mb-20 rounded-2xl overflow-hidden"
+          data-reveal="scale"
+        >
+          <Image
+            src={eventsHeader}
+            alt="Events & Kalender – Kommende Termine"
+            class="w-full h-auto object-cover aspect-21/9"
+            width={1280}
+            height={548}
+          />
         </div>
+      )
+    }
+
+    <!-- Schwerpunkte -->
+    <article class="mb-12 sm:mb-16">
+      <h3
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-6"
+        data-reveal="fade-up"
+      >
+        Wichtige Schwerpunkte
+      </h3>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+        data-reveal-stagger="80"
+      >
+        {
+          highlightEvents.map((event) => (
+            <a href={event.link} class="highlight-card" data-reveal="fade-up">
+              <p class="highlight-label">{event.dateLabel}</p>
+              <h4 class="highlight-title">{event.title}</h4>
+              <p class="highlight-meta">{event.location}</p>
+              <p class="highlight-text">{event.description}</p>
+            </a>
+          ))
+        }
       </div>
-    </div>
+    </article>
 
     <!-- Internationale Termine -->
-    <article id={`${sectionId}-internationale-termine`} class="scroll-mt-28 mb-12 sm:mb-16">
-      <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-6" data-reveal="fade-up">
+    <article
+      id={`${sectionId}-internationale-termine`}
+      class="scroll-mt-28 mb-12 sm:mb-16"
+    >
+      <h3
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-6"
+        data-reveal="fade-up"
+      >
         Internationale Termine
       </h3>
       <p class="text-gray-600 leading-relaxed mb-8" data-reveal="fade-up">
-        Termine der Mitgliedsorganisationen kompakt gesammelt.
+        Termine der Mitgliedsorganisationen kompakt gesammelt. Verbindlich sind
+        die Ausschreibungen und Mitteilungen der Veranstalter.
       </p>
 
       <div class="space-y-6" data-reveal-stagger="100">
-        {internationalEvents.map((event) => (
-          <a href={event.link} class="event-card group" data-reveal="fade-left">
-            <div class="event-indicator"></div>
-            <div class="event-date">
-              <div class="event-day">{event.day}</div>
-              <div class="event-month">{event.month}</div>
-              <div class="event-year">{event.year}</div>
-            </div>
-            <div class="event-content">
-              <h4 class="event-title">{event.title}</h4>
-              <div class="event-meta">
-                <span class="event-location">{event.location}</span>
-                <span class="event-separator">·</span>
-                <span class="event-description">{event.description}</span>
+        {
+          regularEvents.map((event) => (
+            <a
+              href={event.link}
+              class="event-card group"
+              data-reveal="fade-left"
+            >
+              <div class="event-indicator" />
+              <div class="event-date">
+                <div class="event-date-label">{event.dateLabel}</div>
               </div>
-            </div>
-            <div class="event-arrow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </div>
-          </a>
-        ))}
+              <div class="event-content">
+                <h4 class="event-title">{event.title}</h4>
+                <div class="event-meta">
+                  <span class="event-location">{event.location}</span>
+                  <span class="event-separator">·</span>
+                  <span class="event-description">{event.description}</span>
+                </div>
+              </div>
+              <div class="event-arrow">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          ))
+        }
       </div>
     </article>
 
     <!-- Veranstaltungskalender -->
-    <article id={`${sectionId}-veranstaltungskalender`} class="scroll-mt-28" data-reveal="fade-up">
-      <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-6">
+    <article
+      id={`${sectionId}-veranstaltungskalender`}
+      class="scroll-mt-28"
+      data-reveal="fade-up"
+    >
+      <h3
+        class="text-[11px] font-bold tracking-[0.12em] uppercase text-accent mb-6"
+      >
         Veranstaltungskalender
       </h3>
       <p class="text-gray-600 leading-relaxed mb-8">
-        Wettbewerbe, Meetings und Zuchttermine.
+        Wettbewerbe, Meetings, Haflinger Weltausstellung und züchterische
+        Fachtermine.
       </p>
-      <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
-        {showCta && (
-          <a href="/events" class="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group btn-glow">
-            Zur Events & Kalender-Seite
-            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        )}
-        <a href="#kontakt" class="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 border border-black/10 bg-white text-gray-800 text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-gray-50 hover:border-black/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group">
+      <div
+        class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4"
+      >
+        {
+          showCta && (
+            <a
+              href="/events"
+              class="inline-flex items-center justify-center gap-2 min-h-12 px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group btn-glow"
+            >
+              Zur Events & Kalender-Seite
+              <svg
+                class="w-4 h-4 transition-transform group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </a>
+          )
+        }
+        <a
+          href="#kontakt"
+          class="inline-flex items-center justify-center gap-2 min-h-12 px-6 py-3 border border-black/10 bg-white text-gray-800 text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-gray-50 hover:border-black/20 hover:-translate-y-0.5 sm:px-8 sm:py-3.5 group"
+        >
           Kalender anfragen
-          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          <svg
+            class="w-4 h-4 transition-transform group-hover:translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
           </svg>
         </a>
       </div>
     </article>
-
   </div>
 </section>
 
-<script>
-  function initCountdown() {
-    const targetDate = new Date('2026-04-12T09:00:00+02:00');
-    const daysEl = document.querySelector('[data-countdown-days]');
-    const hoursEl = document.querySelector('[data-countdown-hours]');
-    const minutesEl = document.querySelector('[data-countdown-minutes]');
-    if (!daysEl || !hoursEl || !minutesEl) return;
-
-    function update() {
-      const now = new Date();
-      const diff = targetDate.getTime() - now.getTime();
-      if (diff <= 0) {
-        daysEl!.textContent = '0';
-        hoursEl!.textContent = '0';
-        minutesEl!.textContent = '0';
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      daysEl!.textContent = String(days);
-      hoursEl!.textContent = String(hours);
-      minutesEl!.textContent = String(minutes);
-    }
-    update();
-    setInterval(update, 60000);
-  }
-  initCountdown();
-  document.addEventListener('astro:page-load', initCountdown);
-</script>
-
 <style>
-  .countdown-banner {
-    padding: 28px 24px;
+  .highlight-card {
+    display: block;
+    padding: 24px;
     background: white;
-    border: 1px solid rgba(0,0,0,0.04);
-    border-radius: 20px;
-    text-align: center;
+    border: 1px solid rgba(134, 23, 44, 0.16);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  @media (min-width: 640px) {
-    .countdown-banner { padding: 36px 32px; }
+  .highlight-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(134, 23, 44, 0.12);
+    border-color: rgba(134, 23, 44, 0.28);
   }
-
-  .countdown-grid {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-  }
-  @media (min-width: 640px) { .countdown-grid { gap: 40px; } }
-
-  .countdown-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-  .countdown-number {
-    font-size: 32px;
-    font-weight: 700;
-    color: #86172c;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-  }
-  @media (min-width: 640px) { .countdown-number { font-size: 44px; } }
-  .countdown-label {
+  .highlight-label {
+    margin-bottom: 8px;
     font-size: 11px;
-    font-weight: 600;
-    color: #71717a;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
+    color: #86172c;
+  }
+  .highlight-title {
+    margin: 0 0 6px;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #18181b;
+  }
+  .highlight-meta {
+    margin: 0 0 8px;
+    font-size: 0.9rem;
+    color: #52525b;
+    font-weight: 600;
+  }
+  .highlight-text {
+    margin: 0;
+    color: #52525b;
+    line-height: 1.6;
   }
 
   .event-card {
@@ -243,7 +336,12 @@ const nextEvent = internationalEvents[0];
       padding: 24px;
     }
   }
-  @media (min-width: 1024px) { .event-card { gap: 24px; padding: 28px; } }
+  @media (min-width: 1024px) {
+    .event-card {
+      gap: 24px;
+      padding: 28px;
+    }
+  }
 
   .event-card:hover {
     border-color: rgba(134, 23, 44, 0.12);
@@ -263,74 +361,175 @@ const nextEvent = internationalEvents[0];
     opacity: 0;
     transition: opacity 0.2s ease;
   }
-  .event-card:hover .event-indicator { opacity: 1; }
+  .event-card:hover .event-indicator {
+    opacity: 1;
+  }
 
   .event-date {
-    display: flex;
-    flex-direction: column;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 72px;
+    min-width: 128px;
     width: fit-content;
-    padding: 12px 8px;
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 12px;
+    padding: 10px 14px;
+    background: rgba(134, 23, 44, 0.08);
+    border-radius: 999px;
     transition: all 0.2s ease;
     flex-shrink: 0;
   }
-  @media (min-width: 640px) { .event-date { min-width: 80px; padding: 14px 10px; } }
-  @media (min-width: 1024px) { .event-date { min-width: 88px; padding: 16px 12px; } }
-  .event-card:hover .event-date { background: rgba(134, 23, 44, 0.06); }
-
-  .event-day { font-size: 28px; font-weight: 700; line-height: 1; color: #18181b; margin-bottom: 4px; }
-  @media (min-width: 640px) { .event-day { font-size: 32px; } }
-  @media (min-width: 1024px) { .event-day { font-size: 36px; } }
-
-  .event-month { font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #71717a; margin-bottom: 2px; }
-  @media (min-width: 640px) { .event-month { font-size: 11px; } }
-  .event-year { font-size: 10px; font-weight: 500; color: #a1a1aa; }
-
-  .event-content { flex: 1; min-width: 0; overflow: hidden; }
-  .event-title {
-    font-size: 16px; font-weight: 600; color: #18181b; margin-bottom: 6px; line-height: 1.3;
-    transition: color 0.2s ease;
-    overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  @media (min-width: 640px) {
+    .event-date {
+      min-width: 150px;
+    }
   }
-  @media (min-width: 640px) { .event-title { font-size: 17px; -webkit-line-clamp: 1; } }
-  @media (min-width: 1024px) { .event-title { font-size: 18px; } }
-  .event-card:hover .event-title { color: #86172c; }
+  .event-card:hover .event-date {
+    background: rgba(134, 23, 44, 0.14);
+  }
 
-  .event-meta { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: 13px; color: #71717a; line-height: 1.5; }
-  @media (min-width: 640px) { .event-meta { font-size: 14px; gap: 8px; } }
-  .event-location { font-weight: 500; color: #52525b; }
-  .event-separator { color: #d4d4d8; }
-  .event-description { overflow: hidden; text-overflow: ellipsis; }
-  @media (min-width: 640px) { .event-description { white-space: nowrap; } }
+  .event-date-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #86172c;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .event-content {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .event-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #18181b;
+    margin-bottom: 6px;
+    line-height: 1.3;
+    transition: color 0.2s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  @media (min-width: 640px) {
+    .event-title {
+      font-size: 17px;
+      -webkit-line-clamp: 1;
+    }
+  }
+  @media (min-width: 1024px) {
+    .event-title {
+      font-size: 18px;
+    }
+  }
+  .event-card:hover .event-title {
+    color: #86172c;
+  }
+
+  .event-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #71717a;
+    line-height: 1.5;
+  }
+  @media (min-width: 640px) {
+    .event-meta {
+      font-size: 14px;
+      gap: 8px;
+    }
+  }
+  .event-location {
+    font-weight: 500;
+    color: #52525b;
+  }
+  .event-separator {
+    color: #d4d4d8;
+  }
+  .event-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  @media (min-width: 640px) {
+    .event-description {
+      white-space: nowrap;
+    }
+  }
 
   .event-arrow {
-    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-    width: 32px; height: 32px; color: #d4d4d8; transition: all 0.2s ease; align-self: flex-end;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #d4d4d8;
+    transition: all 0.2s ease;
+    align-self: flex-end;
   }
-  @media (min-width: 640px) { .event-arrow { width: 36px; height: 36px; align-self: center; } }
-  .event-card:hover .event-arrow { color: #86172c; transform: translateX(4px); }
+  @media (min-width: 640px) {
+    .event-arrow {
+      width: 36px;
+      height: 36px;
+      align-self: center;
+    }
+  }
+  .event-card:hover .event-arrow {
+    color: #86172c;
+    transform: translateX(4px);
+  }
 
   @media (max-width: 374px) {
-    .event-card { padding: 16px; gap: 12px; }
-    .event-date { min-width: 64px; padding: 10px 6px; }
-    .event-day { font-size: 24px; }
-    .event-month { font-size: 9px; }
-    .event-year { font-size: 9px; }
-    .event-title { font-size: 15px; }
-    .event-meta { font-size: 12px; gap: 4px; }
-    .event-arrow { width: 28px; height: 28px; }
+    .event-card {
+      padding: 16px;
+      gap: 12px;
+    }
+    .event-date {
+      min-width: 108px;
+      padding: 9px 10px;
+    }
+    .event-date-label {
+      font-size: 10px;
+    }
+    .event-title {
+      font-size: 15px;
+    }
+    .event-meta {
+      font-size: 12px;
+      gap: 4px;
+    }
+    .event-arrow {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   @media (min-width: 1280px) {
-    .event-card { padding: 32px; gap: 28px; }
-    .event-date { min-width: 96px; padding: 18px 14px; }
-    .event-day { font-size: 40px; }
-    .event-title { font-size: 19px; }
-    .event-meta { font-size: 15px; }
-    .event-arrow { width: 40px; height: 40px; }
+    .event-card {
+      padding: 32px;
+      gap: 28px;
+    }
+    .event-date {
+      min-width: 164px;
+      padding: 12px 16px;
+    }
+    .event-date-label {
+      font-size: 12px;
+    }
+    .event-title {
+      font-size: 19px;
+    }
+    .event-meta {
+      font-size: 15px;
+    }
+    .event-arrow {
+      width: 40px;
+      height: 40px;
+    }
   }
 </style>

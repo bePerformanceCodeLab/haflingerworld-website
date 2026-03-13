@@ -1,20 +1,27 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import SectionEvents from '@/components/sections/SectionEvents.astro';
+import InteractiveEventCalendar from '@/components/sections/InteractiveEventCalendar.astro';
 import SectionCrossLinks from '@/components/SectionCrossLinks.astro';
 import CtaBanner from '@/components/CtaBanner.astro';
 ---
 
-<MainLayout title="Events & Kalender – HWZSV" description="Internationale Termine und Veranstaltungskalender der Haflinger Welt-Zucht- und Sportvereinigung." showNavbar={true}>
+<MainLayout
+  title="Haflinger Events 2026 | Weltausstellung, Weltkongress, Zuchttermine"
+  description="Alle Haflinger Events 2026 mit Fokus auf Weltausstellung und Weltkongress sowie ausgewählten Zucht- und Sportterminen aus dem internationalen Verbandsumfeld."
+  showNavbar={true}
+>
   <PageHero
     title="Events & Kalender"
-    lead="Internationale Termine, Wettbewerbe und Meetings – alle Veranstaltungen der Haflinger-Welt im Überblick."
+    lead="Internationale Termine, Wettbewerbe und Meetings - alle Veranstaltungen der Haflinger-Welt im Überblick."
     accent="Veranstaltungen"
-    breadcrumbItems={[{ label: 'Startseite', href: '/' }, { label: 'Events & Kalender' }]}
+    breadcrumbItems={[
+      { label: 'Startseite', href: '/' },
+      { label: 'Events & Kalender' },
+    ]}
   />
 
-  <SectionEvents noTopBorder={true} compactHeader={true} showCta={false} />
+  <InteractiveEventCalendar />
   <SectionCrossLinks excludePath="/events" />
 
   <CtaBanner
