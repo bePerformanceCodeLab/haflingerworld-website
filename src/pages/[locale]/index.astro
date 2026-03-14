@@ -1,0 +1,15 @@
+---
+import LocalePlaceholderPage from '@/components/LocalePlaceholderPage.astro';
+import {
+  getLocaleIndexPaths,
+  type LocalePlaceholderPageProps,
+} from '@/data/localePlaceholders';
+
+export function getStaticPaths() {
+  return getLocaleIndexPaths();
+}
+
+const props = Astro.props as LocalePlaceholderPageProps;
+---
+
+<LocalePlaceholderPage {...props} />

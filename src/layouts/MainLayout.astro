@@ -8,19 +8,21 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title?: string;
   description?: string;
+  lang?: string;
   showNavbar?: boolean;
 }
 
 const {
   title = 'Haflinger International – HWZSV',
   description = 'Die Haflinger Welt-Zucht- und Sportvereinigung. Informationen zu Zucht, Netzwerk, HWZSV, News und Terminen.',
+  lang = 'de',
   showNavbar = true,
 } = Astro.props;
 const ogImageUrl = new URL('/og-image.jpg', Astro.url).href;
 ---
 
 <!doctype html>
-<html lang="de" class="min-h-full">
+<html lang={lang} class="min-h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -92,7 +94,9 @@ const ogImageUrl = new URL('/og-image.jpg', Astro.url).href;
       function isDesktop() {
         return (
           typeof window !== 'undefined' &&
-          window.innerWidth >= MOBILE_BREAKPOINT
+          window.innerWidth >= MOBILE_BREAKPOINT &&
+          window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches
         );
       }
 

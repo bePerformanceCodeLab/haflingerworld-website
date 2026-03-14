@@ -41,11 +41,23 @@ const contactItems = [
 ];
 
 const currentPath = Astro.url.pathname;
-const pathWithoutLocale = currentPath.replace(
-  /^\/(?:it|en)(?:\/|$)/,
-  (_, __, slash) => slash || '/',
-);
+const currentLocaleMatch = currentPath.match(/^\/(it|en)(?:\/|$)/);
+const currentLocale = currentLocaleMatch?.[1] ?? 'de';
+const pathWithoutLocale =
+  currentPath.replace(/^\/(?:it|en)(?=\/|$)/, '') || '/';
 const pathNorm = pathWithoutLocale.replace(/\/$/, '') || '/';
+const localizePath = (href: string) => {
+  if (!href.startsWith('/') || currentLocale === 'de') return href;
+  const [pathname, hash = ''] = href.split('#');
+  const localizedPath =
+    pathname === '/' ? `/${currentLocale}` : `/${currentLocale}${pathname}`;
+  return hash ? `${localizedPath}#${hash}` : localizedPath;
+};
+const getLanguageHref = (langPath: string) => {
+  if (langPath === '/') return pathWithoutLocale;
+  return `${langPath.replace(/\/$/, '')}${pathWithoutLocale}`;
+};
+const homeHref = currentLocale === 'de' ? '/' : `/${currentLocale}`;
 const isNavItemActive = (item: { href: string }) =>
   pathNorm === item.href || pathNorm.startsWith(item.href + '/');
 ---
@@ -55,7 +67,7 @@ const isNavItemActive = (item: { href: string }) =>
   <div class="nav-container">
     <div class="nav-content">
       <!-- Logo -->
-      <a href="/" class="logo-link" aria-label="Zur Startseite">
+      <a href={homeHref} class="logo-link" aria-label="Zur Startseite">
         <div class="logo-wrapper">
           <Image
             src={logoImage}
@@ -73,7 +85,7 @@ const isNavItemActive = (item: { href: string }) =>
           {
             navItems.map((item) => (
               <a
-                href={item.href}
+                href={localizePath(item.href)}
                 class={`nav-link ${isNavItemActive(item) ? 'active' : ''}`}
                 aria-current={isNavItemActive(item) ? 'page' : undefined}
               >
@@ -90,10 +102,7 @@ const isNavItemActive = (item: { href: string }) =>
         <div class="lang-switcher" role="group" aria-label="Sprache wählen">
           {
             languages.map((lang) => {
-              const href =
-                lang.path === '/'
-                  ? pathWithoutLocale
-                  : lang.path.replace(/\/$/, '') + pathWithoutLocale;
+              const href = getLanguageHref(lang.path);
               const active =
                 lang.code === 'DE'
                   ? !currentPath.startsWith('/it') &&
@@ -162,7 +171,7 @@ const isNavItemActive = (item: { href: string }) =>
         {
           navItems.map((item) => (
             <a
-              href={item.href}
+              href={localizePath(item.href)}
               class={`mobile-nav-link ${isNavItemActive(item) ? 'active' : ''}`}
               aria-current={isNavItemActive(item) ? 'page' : undefined}
             >
@@ -264,10 +273,7 @@ const isNavItemActive = (item: { href: string }) =>
         <div class="mobile-lang">
           {
             languages.map((lang) => {
-              const href =
-                lang.path === '/'
-                  ? pathWithoutLocale
-                  : lang.path.replace(/\/$/, '') + pathWithoutLocale;
+              const href = getLanguageHref(lang.path);
               const active =
                 lang.code === 'DE'
                   ? !currentPath.startsWith('/it') &&
@@ -666,9 +672,12 @@ const isNavItemActive = (item: { href: string }) =>
   .mobile-menu {
     position: fixed;
     inset: 0;
+    height: 100dvh;
     z-index: 40;
     background: #fafafa;
     opacity: 0;
+    overflow: hidden;
+    overscroll-behavior: contain;
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
@@ -696,7 +705,8 @@ const isNavItemActive = (item: { href: string }) =>
     position: relative;
     z-index: 2;
     pointer-events: none;
-    height: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -706,10 +716,13 @@ const isNavItemActive = (item: { href: string }) =>
 
   .mobile-menu-scroll {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
     padding: 96px 24px 24px;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     pointer-events: auto;
+    touch-action: pan-y;
   }
 
   @media (min-width: 640px) {

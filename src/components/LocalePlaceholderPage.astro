@@ -1,0 +1,165 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import type { LocalePlaceholderPageProps } from '@/data/localePlaceholders';
+
+const {
+  locale,
+  title,
+  description,
+  heroTitle,
+  lead,
+  accent,
+  breadcrumbItems,
+  germanHref,
+  germanCtaLabel,
+  statusLabel,
+  statusTitle,
+  statusText,
+  paragraphs,
+  showCookieAnchor,
+  cookieTitle,
+  cookieText,
+} = Astro.props as LocalePlaceholderPageProps;
+---
+
+<MainLayout
+  title={title}
+  description={description}
+  lang={locale}
+  showNavbar={true}
+>
+  <PageHero
+    title={heroTitle}
+    lead={lead}
+    accent={accent}
+    breadcrumbItems={breadcrumbItems}
+  />
+
+  <section class="py-16 sm:py-20 bg-white border-t border-black/5">
+    <div class="site-container max-w-4xl">
+      <div class="locale-placeholder-panel">
+        <p class="locale-placeholder-label">{statusLabel}</p>
+        <h2 class="locale-placeholder-title">{statusTitle}</h2>
+        <p class="locale-placeholder-text">{statusText}</p>
+        <a href={germanHref} class="locale-placeholder-link">
+          {germanCtaLabel}
+        </a>
+      </div>
+
+      <div class="locale-placeholder-copy">
+        {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      {
+        showCookieAnchor && (
+          <section id="cookie" class="locale-placeholder-cookie">
+            <h3>{cookieTitle}</h3>
+            <p>{cookieText}</p>
+          </section>
+        )
+      }
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .locale-placeholder-panel {
+    padding: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 24px;
+    background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    box-shadow: 0 18px 40px rgba(24, 24, 27, 0.05);
+  }
+
+  .locale-placeholder-label {
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #86172c;
+  }
+
+  .locale-placeholder-title {
+    margin-bottom: 12px;
+    font-size: 1.75rem;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #18181b;
+  }
+
+  .locale-placeholder-text {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #52525b;
+  }
+
+  .locale-placeholder-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 20px;
+    border-radius: 14px;
+    background: #18181b;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .locale-placeholder-link:hover {
+    background: #86172c;
+    transform: translateY(-1px);
+  }
+
+  .locale-placeholder-copy {
+    margin-top: 28px;
+    display: grid;
+    gap: 16px;
+  }
+
+  .locale-placeholder-copy p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3f3f46;
+  }
+
+  .locale-placeholder-cookie {
+    margin-top: 28px;
+    padding: 24px;
+    border-radius: 20px;
+    background: #fafafa;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    scroll-margin-top: 96px;
+  }
+
+  .locale-placeholder-cookie h3 {
+    margin: 0 0 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #18181b;
+  }
+
+  .locale-placeholder-cookie p {
+    margin: 0;
+    color: #52525b;
+    line-height: 1.75;
+  }
+
+  @media (min-width: 640px) {
+    .locale-placeholder-panel {
+      padding: 36px;
+    }
+
+    .locale-placeholder-title {
+      font-size: 2rem;
+    }
+  }
+</style>
